@@ -2,17 +2,21 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const ROOT_PATH = path.resolve(__dirname);
+const PROD = process.env.NODE_ENV === 'production';
+const env = process.env.NODE_ENV || 'development';
+
 
 module.exports = {
-  devtool: process.env.NODE_ENV === 'production' ? '' : 'source-map',
+  devtool: PROD ? '' : 'source-map',
   entry: [
-    path.resolve(ROOT_PATH,'app/src/index')
+    'bootstrap-loader',
+    path.resolve(ROOT_PATH,'app/src')
   ],
   module: {
     preLoaders: [
       {
         test: /\.jsx?$/,
-        loaders: process.env.NODE_ENV === 'production' ? [] : ['eslint'],
+        loaders: PROD ? [] : ['eslint'],
         include: path.resolve(ROOT_PATH, './app')
       }
     ],
@@ -24,18 +28,32 @@ module.exports = {
     {
       test: /\.scss$/,
       loaders: ['style','css','sass']
-    }]
+    },
+      {
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        loaders: [ 'url?limit=10000' ],
+      }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+      components: path.resolve(ROOT_PATH, 'app/src/components'),
+      containers: path.resolve(ROOT_PATH, 'app/src/containers'),
+      pages: path.resolve(ROOT_PATH, 'app/src/pages'),
+      actions: path.resolve(ROOT_PATH, 'app/src/actions'),
+      utils: path.resolve(ROOT_PATH, 'app/src/utils'),
+      common: path.resolve(ROOT_PATH, 'common'),
+      reducers: path.resolve(ROOT_PATH, 'app/src/reducers'),
+      config: path.join(ROOT_PATH, 'config', env),
+    },
   },
   output: {
-    path: process.env.NODE_ENV === 'production' ? path.resolve(ROOT_PATH, 'app/dist') : path.resolve(ROOT_PATH, 'app/build'),
+    path: PROD ? path.resolve(ROOT_PATH, 'dist') : path.resolve(ROOT_PATH, 'app/build'),
     publicPath: '/',
     filename: 'bundle.js',
   },
   devServer: {
-    contentBase: path.resolve(ROOT_PATH, 'app/build'),
+    contentBase: path.resolve(ROOT_PATH, 'dist'),
     historyApiFallback: true,
     hot: true,
     inline: true,
@@ -44,7 +62,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
-      title: 'React BoilerPlate'
+      title: 'React BoilerPlate',
+      template: 'index.html'
     })
   ]
 };

@@ -1,10 +1,10 @@
 import React from 'react';
-import Todo from './Todo';
-
-require('./App.scss');
+import AppNav from './AppNav/AppNav';
 
 export default class App extends React.Component {
   render() {
-    return <Todo />;
+    return (
+        <AppNav />
+    );
   }
 }
