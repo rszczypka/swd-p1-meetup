@@ -27,6 +27,7 @@ and avoiding submitting invalid information.
 ### License
 
 Copyright © 2016 Rafal Szczypka. This source code is licensed under the MIT license.
+
 ---
 Project maintained by Rafal Szczypka
 
