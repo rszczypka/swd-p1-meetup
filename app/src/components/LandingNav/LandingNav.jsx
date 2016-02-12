@@ -3,7 +3,7 @@ import messages from 'utils/messages';
 import { Link } from 'react-router';
 import { Navbar, Nav } from 'react-bootstrap';
 
-export default class AppNav extends React.Component {
+export default class LandingNav extends React.Component {
   render() {
     return (
       <Navbar inverse>
@@ -18,8 +18,12 @@ export default class AppNav extends React.Component {
           <Navbar.Collapse>
             <Nav>
               <li>
-                <Link to="/signup" className="logout">
-                {messages.UA_LOGOUT}</Link>
+                <Link to="/signup" className="signup underline">
+                {messages.LANDING_SIGNUP}</Link>
+              </li>
+              <li>
+                <Link to="/login" className="login">
+                {messages.LANDING_LOGIN}</Link>
               </li>
             </Nav>
           </Navbar.Collapse>
@@ -29,5 +33,5 @@ export default class AppNav extends React.Component {
   }
 }
 
-AppNav.propTypes = {
+LandingNav.propTypes = {
 };

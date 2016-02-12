@@ -1,10 +1,11 @@
-import {combineReducers} from 'redux';
-import errors from 'errors';
-import events from 'events';
-import loggedUser from 'loggedUser';
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import errors from './errors';
+import loggedUser from './loggedUser';
+
 
 export default combineReducers({
-  events,
   errors,
   loggedUser,
+  form: formReducer //Mounted at 'form'.
 });
