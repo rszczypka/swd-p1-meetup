@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { LogInNew } from 'components';
 import { login } from 'actions/auth';
 import history from 'utils/history';
+import messages from 'utils/messages';
 
 class LoginPage extends React.Component {
-  onSubmit(params) {
+  handleSubmit(params) {
+    console.log('Clicked', params);
     this.props.dispatch(login({ ...params, redirect: true }));
   }
   toSignup() {
