@@ -14,6 +14,12 @@ export function loginSuccess(user) {
   };
 }
 
+export function loginAttempt() {
+  return {
+    type: 'LOGIN_ATTEMPT',
+  };
+}
+
 export function loginFailed(errors) {
   return {
     type: 'LOGIN_ERROR',
@@ -25,6 +31,12 @@ export function signupSuccess(user) {
   return {
     type: 'SIGNUP_SUCCESS',
     user,
+  };
+}
+
+export function signupAttempt() {
+  return {
+    type: 'SIGNUP_ATTEMPT',
   };
 }
 
@@ -44,7 +56,7 @@ export function logoutAction() {
 export function login(params) {
   return (dispatch) => {
     const errors = [];
-
+    dispatch(loginAttempt());
     return fireRef.authWithPassword({
       email: String(params.email),
       password: String(params.password)
@@ -71,7 +83,7 @@ export function signup(params) {
     const validationError = signupValidate(params);
     const errors = [];
     const user = {};
-
+    dispatch(signupAttempt());
     if (validationError) return dispatch(signupFailed(validationError));
 
     return fireRef.createUser({

@@ -1,67 +1,50 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import messages from 'utils/messages';
-import { login } from 'actions/auth';
+import loginValidation from './loginValidation';
 
 const fields = ['emailInput', 'passInput'];
 
-const validate = values => {
-  const errors = {};
-
-  if (!values.emailInput) {
-    errors.emailInput = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.emailInput)) {
-    errors.emailInput = 'Invalid email address';
-  }
-
-  return errors;
-};
-
-
 class LogInNew extends React.Component {
-
   render() {
-    const handleSubmit = (event) => {
-      event.preventDefault();
 
-      this.props.dispatch(login({
-        email: this.props.fields.emailInput.value,
-        password: this.props.fields.passInput.value,
-        redirect: true
-      }));
-    }
-    const {fields: {emailInput, passInput}, valid, submitting} = this.props;
+    const {fields: {emailInput, passInput}, valid, handleSubmit, asyncErrors, submitting} = this.props;
 
     return (
-        <form onSubmit={handleSubmit}>
-          <div className={(emailInput.touched && emailInput.error) ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'}>
-            <label htmlFor="email">{ messages.EMAIL }
-            <input {...emailInput}
+        <form onSubmit={ handleSubmit }>
+          <div className={(asyncErrors.length) ? 'alert alert-danger':''}>
+            <ul id="login-error" className="list-unstyled">
+              {asyncErrors
+                .map((error, key) => <li key ={key}><span className="label label-danger">error</span> {error} </li>)
+              }
+            </ul>
+          </div>
+          <div className={(emailInput.touched && emailInput.error) ? 'form-group has-error has-feedback' : 'form-group has-feedback'}>
+            <label htmlFor="email">{ messages.EMAIL }</label>
+              <input {...emailInput}
                    className="form-control"
                    required
+                   autoFocus={true}
                    autoComplete="email"
                    type="email"
                    name="email"
+                   disabled={ submitting }
                    placeholder={ messages.EMAIL }
-                   /></label>
-            {emailInput.touched && emailInput.error && <div>{emailInput.error}</div>}
-            {emailInput.touched
-              && emailInput.valid
-              && <span className="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-              && <span className="sr-only">(success)</span>}
-
+                   />
+            {emailInput.touched && emailInput.error && <div className="text-danger"><span className="label label-danger">error</span> {emailInput.error}</div>}
           </div>
-          <div className={(passInput.touched && passInput.error) ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'}>
-            <label htmlFor="password">{ messages.PASSWORD }
+          <div className={(passInput.touched && passInput.error) ? 'form-group has-error has-feedback' : 'form-group has-feedback'}>
+            <label htmlFor="password">{ messages.PASSWORD }</label>
             <input {...passInput}
                    className="form-control"
                    required
                    type="password"
+                   disabled={ submitting }
                    placeholder={ messages.PASSWORD }
-                   name="password"/></label>
-
+                   name="password"/>
+            {passInput.touched && passInput.error && <div className="text-danger"><span className="label label-danger">error</span> {passInput.error}</div>}
           </div>
-          <button type="submit" className="btn btn-primary" disabled={ !valid }>{ messages.LOGIN }</button>
+          <button type="submit" className="btn btn-primary" disabled={ !valid || submitting }>{ submitting ? messages.SUBMITTING : messages.LOGIN }</button>
         </form>
     )
   }
@@ -77,5 +60,5 @@ LogInNew.propTypes = {
 export default reduxForm({
   form: 'login',
   fields,
-  validate
+  validate: loginValidation
 })(LogInNew);

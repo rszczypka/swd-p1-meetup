@@ -3,19 +3,32 @@ import {connect} from 'react-redux';
 import * as Components from 'components';
 import { signup } from 'actions/auth';
 import history from 'utils/history';
+import messages from 'utils/messages';
 
 class SignUp extends React.Component {
-  onSubmit(params) {
-    this.props.dispatch(signup({...params, redirect: true}));
+  handleSubmit(params) {
+
+    return this.props.dispatch(signup({
+      email: params.emailInput,
+      password: params.passInput,
+      redirect: true }));
+
   }
   toLogin() {
     history.replaceState(null, '/login');
   }
   render() {
     return (
-      <Components.SignUp errors={this.props.errors}
-                         toLogin={this.props.toLogin || this.toLogin}
-                         onSubmit={this.onSubmit.bind(this)}/>
+      <div className="signup-form">
+        <h3>Sign up!</h3>
+        <div className="well">
+          <Components.SignUp asyncErrors={this.props.errors}
+                         onSubmit={this.handleSubmit.bind(this)}/>
+        </div>
+        <a href="#" className="already"
+           onClick={ this.toLogin }>{messages.SIGNUP_TO_LOGIN}
+        </a>
+      </div>
     );
   }
 }

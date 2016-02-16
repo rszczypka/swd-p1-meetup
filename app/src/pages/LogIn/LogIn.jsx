@@ -7,8 +7,12 @@ import messages from 'utils/messages';
 
 class LoginPage extends React.Component {
   handleSubmit(params) {
-    console.log('Clicked', params);
-    this.props.dispatch(login({ ...params, redirect: true }));
+
+    return this.props.dispatch(login({
+        email: params.emailInput,
+        password: params.passInput,
+        redirect: true }));
+
   }
   toSignup() {
     history.replaceState(null, '/signup');
@@ -18,10 +22,12 @@ class LoginPage extends React.Component {
       <div className="login-form">
         <h3>{messages.LOGIN_TITLE}</h3>
         <div className="well">
-          <LogInNew />
+          <LogInNew
+            onSubmit={ this.handleSubmit.bind(this) }
+            asyncErrors={this.props.errors}
+          />
         </div>
-        <a href="#" className="tosignup"
-           onClick={this.props.toSignup}>
+        <a href="#" className="tosignup" onClick={ this.toSignup }>
           {messages.LOGIN_TO_SIGNUP}
         </a>
       </div>
