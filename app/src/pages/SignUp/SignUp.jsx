@@ -11,6 +11,10 @@ class SignUp extends React.Component {
     return this.props.dispatch(signup({
       email: params.emailInput,
       password: params.passInput,
+      fullName: params.nameInput,
+      organization: params.employerInput,
+      organizationTitle: params.jobtitleInput,
+      bday: params.dobInput,
       redirect: true }));
 
   }

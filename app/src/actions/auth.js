@@ -5,6 +5,7 @@ import config from '../../../config/development';
 import Firebase from 'firebase';
 
 const fireRef = new Firebase(config.firebaseUrl);
+const usersRef = fireRef.child('users');
 
 
 export function loginSuccess(user) {
@@ -97,10 +98,16 @@ export function signup(params) {
         user.id=userData.uid;
         user.email = params.email;
         user.password = params.password;
-        dispatch(loginSuccess(user));
+
+        dispatch(saveAdditionalUserData(userData.uid, params));
+        dispatch(signupSuccess(user));
+        dispatch(login({
+          email: params.email,
+          password: params.password
+        }));
 
         const route = location.pathname;
-        if (route === '/singup' || route === '/landing') {
+        if (route === '/signup' || route === '/landing') {
           history.replaceState(null, '/');
         }
       }
@@ -109,12 +116,29 @@ export function signup(params) {
   };
 }
 
+export function saveAdditionalUserData(uid, params) {
+  return (dispatch) => {
+    const errors = [];
+    console.log('additionalUserData', uid, params);
+    return usersRef.child(uid).set({
+      fullName: params.fullName || '',
+      organization: params.organization || '',
+      organizationTitle: params.organizationTitle || '',
+      bday: params.bday || ''
+    }, function(error) {
+      if(error) {
+        errors.push(error.message)
+        dispatch(signupFailed(errors));
+      }
+    })
+  }
+}
+
 export function logout() {
   return (dispatch) => {
     fireRef.unauth();
     dispatch(logoutAction());
     // router();
-    storage.remove('firebase:session::meetupeventplanner');
     history.replaceState(null, '/landing');
   };
 }
