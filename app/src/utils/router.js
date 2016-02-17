@@ -25,10 +25,12 @@ export default function render() {
           </Route>
           <Route path="/" component={Containers.AppLayout}>
             <IndexRoute component={Pages.About} onEnter={requireAuth}/>
+            <Route path="logout" component={Pages.Logout} />
           </Route>
         </Route>
       </Router>
-    </Provider>,
+    </Provider>
+    ,
     document.getElementById('meetUp')
   );
 }
