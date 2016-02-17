@@ -18,7 +18,7 @@ export default class AppNav extends React.Component {
           <Navbar.Collapse>
             <Nav>
               <li>
-                <Link to="/signup" className="logout">
+                <Link to="/logout" className="logout">
                 {messages.UA_LOGOUT}</Link>
               </li>
             </Nav>

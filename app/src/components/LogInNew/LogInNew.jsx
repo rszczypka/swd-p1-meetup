@@ -19,7 +19,7 @@ class LogInNew extends React.Component {
               }
             </ul>
           </div>
-          <div className={(emailInput.touched && emailInput.error) ? 'form-group has-error has-feedback' : 'form-group has-feedback'}>
+          <div className={(emailInput.touched && emailInput.dirty && emailInput.error) ? 'form-group has-error has-feedback' : 'form-group has-feedback'}>
             <label htmlFor="email">{ messages.EMAIL }</label>
               <input {...emailInput}
                    className="form-control"
@@ -31,7 +31,7 @@ class LogInNew extends React.Component {
                    disabled={ submitting }
                    placeholder={ messages.EMAIL }
                    />
-            {emailInput.touched && emailInput.error && <div className="text-danger"><span className="label label-danger">error</span> {emailInput.error}</div>}
+            {emailInput.touched && emailInput.dirtyasj && emailInput.error && <div className="text-danger"><span className="label label-danger">error</span> {emailInput.error}</div>}
           </div>
           <div className={(passInput.touched && passInput.error) ? 'form-group has-error has-feedback' : 'form-group has-feedback'}>
             <label htmlFor="password">{ messages.PASSWORD }</label>

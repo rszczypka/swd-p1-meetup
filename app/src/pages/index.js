@@ -9,5 +9,6 @@ import Landing from './Landing/Landing';
 import SignUp from './SignUp/SignUp';
 import LogIn from './LogIn/LogIn';
 import About from './About/About';
+import Logout from './Logout/Logout';
 
-export { About, Landing, SignUp, LogIn };
+export { About, Landing, SignUp, LogIn, Logout };

@@ -30,20 +30,12 @@ module.exports = {
       loaders: ['style','css','sass']
     },
       {
-        test: /\.eot/,
-        loader: 'url-loader?mimetype=application/vnd.ms-fontobject'
-      }, {
-        test: /\.ttf/,
-        loader: 'url-loader?mimetype=application/x-font-ttf'
-      }, {
-        test: /\.woff/,
-        loader: 'url-loader?mimetype=application/font-woff'
-      }, {
-        test: /\.woff2/,
-        loader: 'url-loader?mimetype=application/font-woff'
-      },{
-        test: /\.svg/,
-        loader: 'url?limit=100000&mimetype=image/svg+xml'
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
       }]
   },
   resolve: {
