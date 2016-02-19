@@ -1,0 +1,29 @@
+// Core variables
+@import "variables";
+
+.event-details {
+  font-size: small;
+  color: $gray-light;
+  display: inline-block;
+  border-right: 1px solid $gray-lighter;
+  padding: 0 5px;
+
+  &:last-of-type {
+    border-right: none;
+  }
+}
+
+.app-layout .page-header {
+  margin: 0 0 5px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 5px;
+}
+
+.events {
+  .page-header {
+    border-bottom: none;
+  }
+  .panel-body {
+    padding: 5px 15px 0;
+  }
+}

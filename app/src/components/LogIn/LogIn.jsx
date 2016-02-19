@@ -1,59 +1,115 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import messages from 'utils/messages';
-import { Input } from 'react-bootstrap';
+import loginValidation from './loginValidation';
 
-export default class LogIn extends React.Component {
-  onSubmit(event) {
-    event.preventDefault();
-    this.props.onSubmit({
-      email: this.emailInput.value,
-      password: this.passInput.value
-    })
-  }
+const fields = [
+  'emailInput',
+  'passInput'
+];
 
+class LogIn extends React.Component {
   render() {
+    const {
+      fields: {
+        emailInput,
+        passInput
+        },
+      valid,
+      handleSubmit,
+      asyncErrors,
+      submitting
+      } = this.props;
+
     return (
-      <div className="login-form">
-        <h3>{messages.LOGIN_TITLE}</h3>
-        <div className="well">
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <div className="form-group has-feedback">
-            <label htmlFor="email">{ messages.EMAIL }</label>
-            <input ref={(input) => this.emailInput = input}
-                   className="form-control"
-                   required
-                   autocomplete="email"
-                   type="email"
-                   placeholder={ messages.EMAIL }
-                   name="email"/>
-
-          </div>
-          <div className="form-group has-feedback">
-            <label htmlFor="password">{ messages.PASSWORD }</label>
-            <input ref={(input) => this.passInput = input}
-                   className="form-control"
-                   required
-                   type="password"
-                   placeholder={ messages.PASSWORD }
-                   name="password"/>
-
-          </div>
-          <button type="submit" className="btn btn-primary"> { messages.LOGIN }</button>
-        </form>
+      <form onSubmit={ handleSubmit }>
+        <div className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
+          <ul id="login-error" className="list-unstyled">
+            {asyncErrors
+              .map((error, key) =>
+                <li
+                  key={key}
+                >
+                    <span
+                      className="label label-danger"
+                    >error</span> {error}
+                </li>
+              )
+            }
+          </ul>
         </div>
-        <a href="#" className="tosignup"
-             onClick={this.props.toSignup}>
-          {messages.LOGIN_TO_SIGNUP}
-        </a>
-      </div>
-    )
+        <div
+          className={ (emailInput.touched && emailInput.dirty && emailInput.error) ?
+            'form-group has-error has-feedback' : 'form-group has-feedback' }
+        >
+          <label htmlFor="email">{ messages.EMAIL }</label>
+          <input {...emailInput}
+            className="form-control"
+            required
+            autoFocus
+            autoComplete="email"
+            type="email"
+            name="email"
+            disabled={ submitting }
+            placeholder={ messages.EMAIL }
+          />
+          {
+            emailInput.touched && emailInput.dirty && emailInput.error &&
+            <div
+              className="text-danger"
+            >
+              <span
+                className="label label-danger"
+              >error</span> { emailInput.error }
+            </div>
+          }
+        </div>
+        <div
+          className={ (passInput.touched && passInput.error) ?
+          'form-group has-error has-feedback' : 'form-group has-feedback' }
+        >
+          <label htmlFor="password">{ messages.PASSWORD }</label>
+          <input {...passInput}
+            className="form-control"
+            required
+            type="password"
+            disabled={ submitting }
+            placeholder={ messages.PASSWORD }
+            name="password"
+          />
+          {
+            passInput.touched && passInput.error &&
+            <div
+              className="text-danger"
+            >
+            <span
+              className="label label-danger"
+            >error</span> {passInput.error}
+            </div>
+          }
+        </div>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={ !valid || submitting }
+        >
+          { submitting ? messages.SUBMITTING : messages.LOGIN }
+        </button>
+      </form>
+    );
   }
 }
 
-
 LogIn.propTypes = {
-  onSubmit: React.PropTypes.func,
-  toSignup: React.PropTypes.func,
-  errors: React.PropTypes.array
+  fields: React.PropTypes.object.isRequired,
+  asyncErrors: React.PropTypes.array.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.bool.isRequired,
+  valid: React.PropTypes.bool.isRequired
 };
+
+export default reduxForm({
+  form: 'login',
+  fields,
+  validate: loginValidation
+})(LogIn);

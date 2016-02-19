@@ -18,6 +18,14 @@ export default class AppNav extends React.Component {
           <Navbar.Collapse>
             <Nav>
               <li>
+                <Link to="/" className="events" onlyActiveOnIndex>
+                  {messages.EVENTS_TITLE}</Link>
+              </li>
+              <li>
+                <Link to="/about" className="about">
+                  {messages.ABOUT_TITLE}</Link>
+              </li>
+              <li>
                 <Link to="/logout" className="logout">
                 {messages.UA_LOGOUT}</Link>
               </li>

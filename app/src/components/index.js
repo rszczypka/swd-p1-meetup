@@ -6,9 +6,9 @@
  */
 
 import LogIn from './LogIn/LogIn';
-import LogInNew from './LogInNew/LogInNew';
 import SignUp from './SignUp/SignUp';
+import AddEvent from './AddEvent/AddEvent';
 import AppNav from './AppNav/AppNav';
 import LandingNav from './LandingNav/LandingNav';
 
-export { LogIn, LogInNew, SignUp, AppNav, LandingNav };
+export { LogIn, SignUp, AddEvent, AppNav, LandingNav };

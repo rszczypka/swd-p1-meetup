@@ -10,7 +10,7 @@ module.exports = {
   devtool: PROD ? '' : 'source-map',
   entry: [
     'bootstrap-loader',
-    path.resolve(ROOT_PATH,'app/src')
+    path.resolve(ROOT_PATH, 'app/src')
   ],
   module: {
     preLoaders: [
@@ -20,15 +20,28 @@ module.exports = {
         include: path.resolve(ROOT_PATH, './app')
       }
     ],
-    loaders: [{
+    loaders: [
+      {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loaders: ['react-hot', 'babel']
-    },
-    {
-      test: /\.scss$/,
-      loaders: ['style','css','sass']
-    },
+      },
+      {
+        test: /\.css/,
+        loaders: ['style', 'css']
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
+      },
+      {
+        test: /\.less/,
+        loaders: ['style', 'css', 'less']
+      },
+      {
+        test: /\.gif$/,
+        loader: 'url-loader?mimetype=image/png'
+      },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=10000&minetype=application/font-woff'

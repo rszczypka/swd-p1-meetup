@@ -1,5 +1,4 @@
 import React from 'react';
-import messages from 'utils/messages';
 import * as Components from 'components';
 
 export default class LandingLayout extends React.Component {
@@ -18,4 +17,3 @@ export default class LandingLayout extends React.Component {
 LandingLayout.propTypes = {
   children: React.PropTypes.object
 };
-

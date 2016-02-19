@@ -1,6 +1,4 @@
 import React from 'react';
-import messages from 'utils/messages';
-import { connect } from 'react-redux';
 import * as Components from 'components';
 
 export default class AppLayout extends React.Component {
@@ -17,6 +15,5 @@ export default class AppLayout extends React.Component {
 }
 
 AppLayout.propTypes = {
-  children: React.PropTypes.object,
-
+  children: React.PropTypes.object
 };

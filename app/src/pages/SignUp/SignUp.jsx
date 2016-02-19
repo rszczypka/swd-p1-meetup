@@ -1,13 +1,18 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as Components from 'components';
 import { signup } from 'actions/auth';
 import history from 'utils/history';
 import messages from 'utils/messages';
 
 class SignUp extends React.Component {
-  handleSubmit(params) {
 
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(params) {
     return this.props.dispatch(signup({
       email: params.emailInput,
       password: params.passInput,
@@ -15,23 +20,29 @@ class SignUp extends React.Component {
       organization: params.employerInput,
       organizationTitle: params.jobtitleInput,
       bday: params.dobInput,
-      redirect: true }));
-
+      redirect: true
+    }));
   }
+
   toLogin() {
     history.replaceState(null, '/login');
   }
+
   render() {
     return (
       <div className="signup-form">
-        <h3>Sign up!</h3>
+        <h4>Sign up!</h4>
         <div className="well">
-          <Components.SignUp asyncErrors={this.props.errors}
-                         onSubmit={this.handleSubmit.bind(this)}/>
+          <Components.SignUp
+            asyncErrors={this.props.errors}
+            onSubmit={ this.handleSubmit }
+          />
         </div>
-        <a href="#" className="already"
-           onClick={ this.toLogin }>{messages.SIGNUP_TO_LOGIN}
-        </a>
+        <a
+          href="#"
+          className="already"
+          onClick={ this.toLogin }
+        >{ messages.SIGNUP_TO_LOGIN }</a>
       </div>
     );
   }

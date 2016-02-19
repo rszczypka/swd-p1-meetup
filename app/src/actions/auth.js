@@ -1,56 +1,54 @@
 import history from 'utils/history';
-import router from 'utils/router';
-import {signup as signupValidate} from 'common/validations';
+import { signup as signupValidate } from 'common/validations';
 import config from '../../../config/development';
 import Firebase from 'firebase';
 
 const fireRef = new Firebase(config.firebaseUrl);
 const usersRef = fireRef.child('users');
 
-
 export function loginSuccess(user) {
   return {
     type: 'LOGIN_SUCCESS',
-    user,
+    user
   };
 }
 
 export function loginAttempt() {
   return {
-    type: 'LOGIN_ATTEMPT',
+    type: 'LOGIN_ATTEMPT'
   };
 }
 
 export function loginFailed(errors) {
   return {
     type: 'LOGIN_ERROR',
-    errors,
+    errors
   };
 }
 
 export function signupSuccess(user) {
   return {
     type: 'SIGNUP_SUCCESS',
-    user,
+    user
   };
 }
 
 export function signupAttempt() {
   return {
-    type: 'SIGNUP_ATTEMPT',
+    type: 'SIGNUP_ATTEMPT'
   };
 }
 
 export function signupFailed(errors) {
   return {
     type: 'SIGNUP_ERROR',
-    errors,
+    errors
   };
 }
 
 export function logoutAction() {
   return {
-    type: 'LOGOUT',
+    type: 'LOGOUT'
   };
 }
 
@@ -61,13 +59,13 @@ export function login(params) {
     return fireRef.authWithPassword({
       email: String(params.email),
       password: String(params.password)
-    }, function(error, authData) {
-      if(error) {
-        errors.push(error.message)
+    }, (error, authData) => {
+      if (error) {
+        errors.push(error.message);
         dispatch(loginFailed(errors));
       } else {
         dispatch(loginSuccess(authData));
-        //dispatch(fetchLists(user.id));
+        // dispatch(fetchLists(user.id));
 
         const route = location.pathname;
         if (route === '/login' || route === '/landing') {
@@ -75,7 +73,23 @@ export function login(params) {
         }
       }
     });
+  };
+}
 
+export function saveAdditionalUserData(uid, params) {
+  return (dispatch) => {
+    const errors = [];
+    return usersRef.child(uid).set({
+      fullName: params.fullName || '',
+      organization: params.organization || '',
+      organizationTitle: params.organizationTitle || '',
+      bday: params.bday || ''
+    }, (error) => {
+      if (error) {
+        errors.push(error.message);
+        dispatch(signupFailed(errors));
+      }
+    });
   };
 }
 
@@ -89,13 +103,13 @@ export function signup(params) {
 
     return fireRef.createUser({
       email: params.email,
-      password: params.password,
-    }, function(error, userData) {
-      if(error) {
-        errors.push(error.message)
+      password: params.password
+    }, (error, userData) => {
+      if (error) {
+        errors.push(error.message);
         dispatch(signupFailed(errors));
       } else {
-        user.id=userData.uid;
+        user.id = userData.uid;
         user.email = params.email;
         user.password = params.password;
 
@@ -111,27 +125,8 @@ export function signup(params) {
           history.replaceState(null, '/');
         }
       }
-
     });
   };
-}
-
-export function saveAdditionalUserData(uid, params) {
-  return (dispatch) => {
-    const errors = [];
-    console.log('additionalUserData', uid, params);
-    return usersRef.child(uid).set({
-      fullName: params.fullName || '',
-      organization: params.organization || '',
-      organizationTitle: params.organizationTitle || '',
-      bday: params.bday || ''
-    }, function(error) {
-      if(error) {
-        errors.push(error.message)
-        dispatch(signupFailed(errors));
-      }
-    })
-  }
 }
 
 export function logout() {
@@ -145,12 +140,11 @@ export function logout() {
 
 export function restore() {
   return (dispatch) => {
-    let authData = fireRef.getAuth();
+    const authData = fireRef.getAuth();
 
-    if(authData) {
+    if (authData) {
       dispatch(loginSuccess(authData));
-      //dispatch(fetchLists(user.id));
+      // dispatch(fetchLists(user.id));
     }
   };
 }
-
