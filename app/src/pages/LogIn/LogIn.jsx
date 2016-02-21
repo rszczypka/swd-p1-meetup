@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { LogIn } from 'components';
 import { login } from 'actions/auth';
-import history from 'utils/history';
+import {browserHistory as history } from 'react-router';
 import messages from 'utils/messages';
 
 class LoginPage extends React.Component {
@@ -21,7 +21,7 @@ class LoginPage extends React.Component {
   }
 
   toSignup() {
-    history.replaceState(null, '/signup');
+    history.push('/signup');
   }
 
   render() {

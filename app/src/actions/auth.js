@@ -1,4 +1,4 @@
-import history from 'utils/history';
+import {browserHistory as history } from 'react-router';
 import config from '../../../config/development';
 import Firebase from 'firebase';
 import { startListeningToEvents } from 'actions/events';
@@ -56,7 +56,6 @@ export function logoutAction() {
 export function fetchUserData(id) {
   return (dispatch) => {
     usersRef.child(id).once('value', function (snapshot) {
-      console.log(snapshot.val());
       dispatch({ type: 'RECEIVE_USER_ADDITIONAL_DATA', data: snapshot.val() });
     });
   };
@@ -65,7 +64,6 @@ export function fetchUserData(id) {
 export function fetchEventsData(id) {
   return (dispatch) => {
     eventsRef.orderByChild('uid').equalTo(id).once('value', function (snapshot) {
-      console.log(snapshot.val());
       dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() });
     });
   };
@@ -90,7 +88,7 @@ export function login(params) {
 
         const route = location.pathname;
         if (route === '/login' || route === '/landing') {
-          history.replaceState(null, '/');
+          history.push('/');
         }
       }
     });
@@ -141,7 +139,7 @@ export function signup(params) {
 
         const route = location.pathname;
         if (route === '/signup' || route === '/landing') {
-          history.replaceState(null, '/');
+          history.push('/');
         }
       }
     });
@@ -152,8 +150,7 @@ export function logout() {
   return (dispatch) => {
     fireRef.unauth();
     dispatch(logoutAction());
-    // router();
-    history.replaceState(null, '/landing');
+    history.push('/landing');
   };
 }
 

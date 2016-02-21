@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AddEvent } from 'components';
-import history from 'utils/history';
+import {browserHistory as history } from 'react-router';
 import messages from 'utils/messages';
 import { submitNewEvent } from 'actions/events';
 
@@ -23,7 +23,7 @@ class AddEventPage extends React.Component {
         location: params.locationInput,
         locationLat: params.locationLatInput,
         locationLng: params.locationLngInput,
-        description: params.descriptionInput
+        description: params.descriptionInput || ''
       }));
     }
 
@@ -36,7 +36,7 @@ class AddEventPage extends React.Component {
 
   cancel(e) {
     e.preventDefault();
-    history.goBack() || history.replaceState(null, '/');
+    history.goBack() || history.push('/');
   }
 
   render() {
@@ -52,8 +52,7 @@ class AddEventPage extends React.Component {
           <AddEvent
             onSubmit={ this.handleSubmit }
             asyncErrors={ this.props.errors || [] }
-            asyncMessages={ this.props.messages || [] }
-            user={ this.props.user || null }
+            fullName={ this.props.fullName || '' }
           />
         </div>
       </div>
@@ -64,18 +63,16 @@ class AddEventPage extends React.Component {
 AddEventPage.propTypes = {
   dispatch: React.PropTypes.func,
   errors: React.PropTypes.array,
-  messages: React.PropTypes.array,
   cancel: React.PropTypes.func,
   events: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object
+  fullName: React.PropTypes.string
 };
 
 function mapStateToProps(state) {
   return {
-    errors: state.errors.events,
-    messages: state.messages,
-    events: state.events,
-    user: state.loggedUser.data
+    errors: state.errors.events || [],
+    events: state.events || {},
+    fullName: state.loggedUser.data.fullName || ''
   };
 }
 

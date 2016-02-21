@@ -1,6 +1,10 @@
 // Core variables
 @import "variables";
 
+html, body {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .event-details {
   font-size: small;
   color: $gray-light;

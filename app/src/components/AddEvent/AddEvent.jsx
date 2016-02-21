@@ -36,7 +36,6 @@ class AddEvent extends React.Component {
   }
 
   handleGeolocation(suggest) {
-    console.log(suggest);
     this.props.fields.locationInput.onChange(suggest.label);
     this.props.fields.locationLatInput.onChange(suggest.location.lat);
     this.props.fields.locationLngInput.onChange(suggest.location.lng);
@@ -69,8 +68,8 @@ class AddEvent extends React.Component {
       valid,
       handleSubmit,
       asyncErrors,
-      asyncMessages,
-      submitting
+      submitting,
+      fullName
       } = this.props;
 
     const eventTypesList = ['Birthday party', 'Conference talk', 'Wedding'];
@@ -94,21 +93,7 @@ class AddEvent extends React.Component {
             }
           </ul>
         </div>
-        <div className={ (asyncMessages.length) ? 'alert alert-success' : '' }>
-          <ul id="event-success" className="list-unstyled">
-            {asyncMessages
-              .map((message, key) =>
-                <li
-                  key={key}
-                >
-                  <span
-                    className="label label-success"
-                  >success</span> { message }
-                </li>
-              )
-            }
-          </ul>
-        </div>
+
         <div
           className={
           (nameInput.touched && nameInput.dirty && nameInput.error) ?
@@ -172,6 +157,7 @@ class AddEvent extends React.Component {
           <label htmlFor="hostName">{messages.EVENT_HOST_LABEL}*</label>
           <input { ...hostInput }
             className="hostName form-control"
+            value={ fullName }
             required
             type = "text"
             disabled = { submitting }
@@ -358,11 +344,10 @@ class AddEvent extends React.Component {
 AddEvent.propTypes = {
   fields: React.PropTypes.object.isRequired,
   asyncErrors: React.PropTypes.array.isRequired,
-  asyncMessages: React.PropTypes.array.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
   submitting: React.PropTypes.bool.isRequired,
   valid: React.PropTypes.bool.isRequired,
-  user: React.PropTypes.object
+  fullName: React.PropTypes.string
 };
 
 export default reduxForm({

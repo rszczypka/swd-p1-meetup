@@ -4,7 +4,7 @@ import Moment from 'moment';
 export default class Event extends React.Component {
 
   render() {
-    var event = this.props.event;
+    const event = this.props.event;
 
     return (
       <div className="panel panel-default">
@@ -15,8 +15,12 @@ export default class Event extends React.Component {
         <div className="panel-footer text-center">
           <div className="event-dates">
             <div className="fa fa-clock-o" title="Event dates"></div>
-            <div className="start-date"> { Moment(event.start).format('ddd, MMM Do YYYY, HH:mm') } </div>
-            <div className="start-date"> { Moment(event.end).format('ddd, MMM Do YYYY, HH:mm') }</div>
+            <div className="start-date">
+              { Moment(event.start).format('ddd, MMM Do YYYY, HH:mm') }
+            </div>
+            <div className="start-date">
+              { Moment(event.end).format('ddd, MMM Do YYYY, HH:mm') }
+            </div>
           </div>
           <div className="event-location event-details">
             <span className="fa fa-map-marker" title="Event location"></span>
@@ -46,4 +50,5 @@ export default class Event extends React.Component {
 }
 
 Event.propTypes = {
+  event: React.PropTypes.object.isRequired
 };

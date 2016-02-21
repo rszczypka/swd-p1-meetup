@@ -1,5 +1,7 @@
 import config from '../../../config/development';
 import Firebase from 'firebase';
+import {browserHistory as history } from 'react-router';
+
 
 const fireRef = new Firebase(config.firebaseUrl);
 const eventsRef = fireRef.child('events');
@@ -14,6 +16,10 @@ export function startListeningToEvents(id) {
 
 export function startEventEdit(qid) {
   return { type: 'START_EVENT_EDIT', qid };
+}
+
+export function dismissAlert() {
+  return { type: 'DISMISS_ALERT' };
 }
 
 export function cancelEventEdit(qid) {
@@ -77,13 +83,12 @@ export function submitNewEvent(content) {
 
     return  eventsRef.push().set(content, (error) => {
       if (error) {
-        console.log(error);
         errors.push(error.message);
         dispatch({ type: 'DISPLAY_ERROR', errors });
       } else {
-        console.log('no error');
         messages.push('Submission successfully saved!');
         dispatch({ type: 'DISPLAY_MESSAGE', messages });
+        history.push('/');
       }
     });
   };
