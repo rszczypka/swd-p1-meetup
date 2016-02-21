@@ -3,6 +3,11 @@
 
 html, body {
   -webkit-tap-highlight-color: transparent;
+  overflow-y: scroll;
+}
+
+.container {
+  max-width: 600px;
 }
 
 .event-details {

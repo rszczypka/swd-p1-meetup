@@ -36,7 +36,7 @@ class SignUp extends React.Component {
           className="already pull-right"
           onClick={ this.toLogin }
         >{ messages.SIGNUP_TO_LOGIN }</a>
-        <h4>Sign up!</h4>
+        <h4>{ messages.SIGNUP }</h4>
         <div className="well">
           <Components.SignUp
             asyncErrors={this.props.errors}

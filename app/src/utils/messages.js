@@ -9,7 +9,7 @@ export default {
 
   /* NOT LOGGED BOX */
   NLB_LOGIN: 'Log in',
-  NLB_SIGNUP: 'Sign up',
+  NLB_SIGNUP: 'Create your user account',
   FIELDS_REQUIRED: '* Fields required to set up your account',
 
   /* FOOTER */
@@ -72,7 +72,7 @@ export default {
   JOBTITLE: 'Job Title',
   DOB: 'Date of Birth (dd/mm/yyyy)',
   SUBMITTING: 'Submitting',
-  SIGNUP: 'Sign up',
+  SIGNUP: 'Create your user account',
   SIGNUP_TO_LOGIN: 'Already have an account?',
   LOGIN_TO_SIGNUP: 'Don\'t have an account yet?',
   /* NEW LOG */

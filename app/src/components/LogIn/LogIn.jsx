@@ -90,7 +90,7 @@ class LogIn extends React.Component {
         </div>
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn btn-primary btn-block"
           disabled={ !valid || submitting }
         >
           { submitting ? messages.SUBMITTING : messages.LOGIN }

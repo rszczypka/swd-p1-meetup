@@ -70,6 +70,7 @@ Project maintained by Rafal Szczypka
 - [react-widgets](https://github.com/jquense/react-widgets) - A React combobox and datepicker
 - [redux-form](https://github.com/erikras/redux-form) - works with React Redux to enable html form in React to use 
 Redux to store all of its state
+- [Firebase](https://www.firebase.com/) - persisten storage
 - A bunch of useful scripts
 
 ## Scripts

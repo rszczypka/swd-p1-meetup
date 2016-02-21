@@ -133,6 +133,7 @@ class AddEvent extends React.Component {
             onBlur={ () => typeInput.onBlur(typeInput.value) }
             data = { eventTypesList }
             required
+            type="text"
             disabled = { submitting }
             placeholder = { messages.EVENT_TYPE_PLACEHOLDER }
             suggest
@@ -226,6 +227,7 @@ class AddEvent extends React.Component {
             onBlur={ () => endInput.onBlur(endInput.value) }
             onSelect={ (date) => this.handleDate(date,'end') }
             required
+            type="date"
             disabled = { submitting }
             name="end"
             id="end"
@@ -292,6 +294,7 @@ class AddEvent extends React.Component {
             onBlur={ () => guestsInput.onBlur(guestsInput.value) }
             data = { eventGuestsList }
             required
+            type="text"
             disabled = { submitting }
             placeholder = { messages.EVENT_GUESTS_PLACEHOLDER }
             suggest
@@ -333,7 +336,7 @@ class AddEvent extends React.Component {
         </div>
 
         <button
-          className="btn btn-primary" type="submit"
+          className="btn btn-primary btn-block" type="submit"
           disabled={ !valid || submitting }
         >{ submitting ? messages.SUBMITTING : messages.ADD_EVENT_TITLE }</button>
       </form>

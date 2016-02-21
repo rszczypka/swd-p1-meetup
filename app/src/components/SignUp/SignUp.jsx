@@ -205,7 +205,7 @@ class SignUp extends React.Component {
             >error</span> {dobInput.error}</div> }
         </div>
         <button
-          className="btn btn-primary" type="submit"
+          className="btn btn-primary btn-block" type="submit"
           disabled={ !valid || submitting }
         >{ submitting ? messages.SUBMITTING : messages.SIGNUP }</button>
       </form>
