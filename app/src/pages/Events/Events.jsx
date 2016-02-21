@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { Event } from 'components';
 import { Alert } from 'react-bootstrap';
 import { dismissAlert } from 'actions/events';
+import ReactDOM from 'react-dom';
 
 
 class EventsPage extends React.Component {
@@ -14,8 +15,11 @@ class EventsPage extends React.Component {
   }
 
   handleAlertDismiss() {
-    console.log('handleAlertDismiss');
     return this.props.dispatch(dismissAlert());
+  }
+
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this).scrollIntoView();
   }
 
   render() {
