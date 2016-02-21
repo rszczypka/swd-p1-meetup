@@ -1,10 +1,11 @@
 import history from 'utils/history';
-import { signup as signupValidate } from 'common/validations';
 import config from '../../../config/development';
 import Firebase from 'firebase';
+import { startListeningToEvents } from 'actions/events';
 
 const fireRef = new Firebase(config.firebaseUrl);
 const usersRef = fireRef.child('users');
+const eventsRef = fireRef.child('events');
 
 export function loginSuccess(user) {
   return {
@@ -52,6 +53,24 @@ export function logoutAction() {
   };
 }
 
+export function fetchUserData(id) {
+  return (dispatch) => {
+    usersRef.child(id).once('value', function (snapshot) {
+      console.log(snapshot.val());
+      dispatch({ type: 'RECEIVE_USER_ADDITIONAL_DATA', data: snapshot.val() });
+    });
+  };
+}
+
+export function fetchEventsData(id) {
+  return (dispatch) => {
+    eventsRef.orderByChild('uid').equalTo(id).once('value', function (snapshot) {
+      console.log(snapshot.val());
+      dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() });
+    });
+  };
+}
+
 export function login(params) {
   return (dispatch) => {
     const errors = [];
@@ -65,7 +84,9 @@ export function login(params) {
         dispatch(loginFailed(errors));
       } else {
         dispatch(loginSuccess(authData));
-        // dispatch(fetchLists(user.id));
+        dispatch(fetchUserData(authData.uid));
+        dispatch(fetchEventsData(authData.uid));
+        dispatch(startListeningToEvents(authData.uid));
 
         const route = location.pathname;
         if (route === '/login' || route === '/landing') {
@@ -95,11 +116,9 @@ export function saveAdditionalUserData(uid, params) {
 
 export function signup(params) {
   return (dispatch) => {
-    const validationError = signupValidate(params);
     const errors = [];
     const user = {};
     dispatch(signupAttempt());
-    if (validationError) return dispatch(signupFailed(validationError));
 
     return fireRef.createUser({
       email: params.email,
@@ -144,7 +163,9 @@ export function restore() {
 
     if (authData) {
       dispatch(loginSuccess(authData));
-      // dispatch(fetchLists(user.id));
+      dispatch(fetchUserData(authData.uid));
+      dispatch(fetchEventsData(authData.uid));
+      dispatch(startListeningToEvents(authData.uid));
     }
   };
 }

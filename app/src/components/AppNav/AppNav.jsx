@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Navbar, Nav } from 'react-bootstrap';
 
 export default class AppNav extends React.Component {
+
   render() {
     return (
       <Navbar inverse>
@@ -11,23 +12,21 @@ export default class AppNav extends React.Component {
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">
-                {messages.TITLE}</Link>
+                { messages.TITLE }</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
               <li>
-                <Link to="/" className="events" onlyActiveOnIndex>
-                  {messages.EVENTS_TITLE}</Link>
+                <Link to="/" className="events" activeClassName="active" onlyActiveOnIndex>
+                  { messages.EVENTS_TITLE }
+                </Link>
               </li>
               <li>
-                <Link to="/about" className="about">
-                  {messages.ABOUT_TITLE}</Link>
-              </li>
-              <li>
-                <Link to="/logout" className="logout">
-                {messages.UA_LOGOUT}</Link>
+                <Link to="/logout" className="logout" activeClassName="active">
+                  { messages.UA_LOGOUT } <span className="fa fa-sign-out"></span>
+                </Link>
               </li>
             </Nav>
           </Navbar.Collapse>

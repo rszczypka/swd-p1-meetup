@@ -5,7 +5,7 @@ export default class AppLayout extends React.Component {
   render() {
     return (
       <div className="app-layout">
-        <Components.AppNav/>
+        <Components.AppNav />
         <div className="container">
           { this.props.children }
         </div>
@@ -17,3 +17,4 @@ export default class AppLayout extends React.Component {
 AppLayout.propTypes = {
   children: React.PropTypes.object
 };
+

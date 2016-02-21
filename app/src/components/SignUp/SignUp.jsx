@@ -136,10 +136,16 @@ class SignUp extends React.Component {
               value=""
             /> { 'Show password' }
           </label>
-            <OverlayTrigger trigger="click" rootClose placement="top" overlay={passwordPopover}>
+            <OverlayTrigger
+              ref='passOverlay'
+              trigger="click"
+              placement="top"
+              overlay={ passwordPopover }
+            >
               <input { ...passInput }
                 className="password form-control"
                 required
+                onKeyUp={ () => this.refs.passOverlay.hide() }
                 type={showPassword.value ? 'text' : 'password'}
                 disabled={ submitting }
                 placeholder={messages.PASSWORD}

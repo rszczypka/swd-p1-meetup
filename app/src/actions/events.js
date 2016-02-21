@@ -4,9 +4,9 @@ import Firebase from 'firebase';
 const fireRef = new Firebase(config.firebaseUrl);
 const eventsRef = fireRef.child('events');
 
-export function startListeningToEvents() {
+export function startListeningToEvents(id) {
   return (dispatch) => {
-    eventsRef.on('value', (snapshot) => {
+    eventsRef.orderByChild('uid').equalTo(id).on('value', (snapshot) => {
       dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() });
     });
   };
@@ -74,13 +74,14 @@ export function submitNewEvent(content) {
     content = Object.assign({}, content, {
       uid: uid
     });
-    dispatch({ type: 'AWAIT_NEW_EVENT_RESPONSE' });
 
     return  eventsRef.push().set(content, (error) => {
       if (error) {
+        console.log(error);
         errors.push(error.message);
         dispatch({ type: 'DISPLAY_ERROR', errors });
       } else {
+        console.log('no error');
         messages.push('Submission successfully saved!');
         dispatch({ type: 'DISPLAY_MESSAGE', messages });
       }

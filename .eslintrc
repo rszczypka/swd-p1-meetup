@@ -12,6 +12,6 @@
     "eol-last": 0
   },
   "plugins": [
-    "react",
+    "react"
   ]
 }

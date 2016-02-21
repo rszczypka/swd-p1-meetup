@@ -31,6 +31,11 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="signup-form">
+        <a
+          href="#"
+          className="already pull-right"
+          onClick={ this.toLogin }
+        >{ messages.SIGNUP_TO_LOGIN }</a>
         <h4>Sign up!</h4>
         <div className="well">
           <Components.SignUp
@@ -38,11 +43,6 @@ class SignUp extends React.Component {
             onSubmit={ this.handleSubmit }
           />
         </div>
-        <a
-          href="#"
-          className="already"
-          onClick={ this.toLogin }
-        >{ messages.SIGNUP_TO_LOGIN }</a>
       </div>
     );
   }

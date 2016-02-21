@@ -14,7 +14,16 @@ class AddEventPage extends React.Component {
   handleSubmit(params) {
     if (!this.props.events.submitting) {
       return this.props.dispatch(submitNewEvent({
-        name: params.nameInput
+        name: params.nameInput,
+        type: params.typeInput,
+        host: params.hostInput,
+        start: params.startStringInput,
+        end: params.endStringInput,
+        guests: params.guestsInput,
+        location: params.locationInput,
+        locationLat: params.locationLatInput,
+        locationLng: params.locationLngInput,
+        description: params.descriptionInput
       }));
     }
 
@@ -25,8 +34,9 @@ class AddEventPage extends React.Component {
       });
   }
 
-  cancel() {
-    history.replaceState(null, '/');
+  cancel(e) {
+    e.preventDefault();
+    history.goBack() || history.replaceState(null, '/');
   }
 
   render() {
@@ -38,20 +48,12 @@ class AddEventPage extends React.Component {
           </a>
           <h3>{messages.ADD_EVENT_TITLE}</h3>
         </div>
-        <ul>
-          <li>Type of the event (birthday party, conference talk, wedding, etc.)</li>
-          <li>Event host (could be an individual’s name or an organization)</li>
-          <li>Event start date and time</li>
-          <li>Event end date and time</li>
-          <li>Guest list</li>
-          <li>Location</li>
-          <li>Optional message to the guests with additional information about the event</li>
-        </ul>
         <div className="well">
           <AddEvent
             onSubmit={ this.handleSubmit }
-            asyncErrors={this.props.errors}
-            asyncMessages={this.props.messages}
+            asyncErrors={ this.props.errors || [] }
+            asyncMessages={ this.props.messages || [] }
+            user={ this.props.user || null }
           />
         </div>
       </div>
@@ -64,14 +66,16 @@ AddEventPage.propTypes = {
   errors: React.PropTypes.array,
   messages: React.PropTypes.array,
   cancel: React.PropTypes.func,
-  events: React.PropTypes.object.isRequired
+  events: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
     errors: state.errors.events,
-    messages: state.messages.events,
-    events: state.events
+    messages: state.messages,
+    events: state.events,
+    user: state.loggedUser.data
   };
 }
 

@@ -10,7 +10,7 @@ export default {
   /* NOT LOGGED BOX */
   NLB_LOGIN: 'Log in',
   NLB_SIGNUP: 'Sign up',
-  FIELDS_REQUIRED: 'Fields required to set up your account',
+  FIELDS_REQUIRED: '* Fields required to set up your account',
 
   /* FOOTER */
   FOOTER_HELP: 'Help',
@@ -98,10 +98,22 @@ export default {
   NOEVENTS: 'The list of events is empty. Why not add one event?',
 
   /* ADD EVENTS */
-  ADD_EVENT_TITLE: 'Add Event',
-  EVENTNAME: 'Event name',
-  EVENTTYPE: 'Event type',
-  FIELDS_REQUIRED_EVENTS: 'Fields required to add your event',
+  ADD_EVENT_TITLE: 'Create your event',
+  EVENT_NAME_LABEL: 'Event name',
+  EVENT_NAME_PLACEHOLDER: 'At least 3 and max 50 characters',
+  EVENT_TYPE_LABEL: 'Event type',
+  EVENT_TYPE_PLACEHOLDER: 'Choose from list or type a new one',
+  EVENT_HOST_LABEL: 'Event host (could be individual\'s name or an organization)',
+  EVENT_HOST_PLACEHOLDER: 'At least 3 and max 20 characters',
+  EVENT_DESCRIPTION_LABEL: 'Optional message to the guests with additional information about the event',
+  EVENT_DESCRIPTION_PLACEHOLDER: 'Maximum 256 characters',
+  EVENT_START_LABEL: 'Event start date and time',
+  EVENT_END_LABEL: 'Event end date and time',
+  EVENT_LOCATION_LABEL: 'Event location',
+  EVENT_LOCATION_PLACEHOLDER: 'Start typing your address',
+  EVENT_GUESTS_LABEL: 'Event Guests',
+  EVENT_GUESTS_PLACEHOLDER: 'Choose from list or type a new one',
+  FIELDS_REQUIRED_EVENTS: '* Fields required to add your event',
 
   /* HELP */
   HELP_TITLE: 'Help',

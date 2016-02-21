@@ -64,13 +64,12 @@ Project maintained by Rafal Szczypka
 - [Immutable](https://github.com/facebook/immutable-js) - data structures
 - [Redux](https://github.com/rackt/redux) - awesome flux architecture
 - [redux-thunk](https://github.com/gaearon/redux-thunk) - thunk middleware for redux
-- [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) - API fetch network requests
-- [redux-devtools](https://github.com/gaearon/redux-devtools) - redux development tool
 - [SASS](http://sass-lang.com/) - styles
 - [ESLint](http://eslint.org/) - linter
-- [Mocha](http://mochajs.org/) - unit tests
-- [jsdom](https://github.com/tmpvar/jsdom) - vdom to test React without browser
-- [Chai](http://chaijs.com/) - assertion library
+- [react-geosuggest](https://github.com/ubilabs/react-geosuggest) - A React autosuggest for the Google Maps Places API
+- [react-widgets](https://github.com/jquense/react-widgets) - A React combobox and datepicker
+- [redux-form](https://github.com/erikras/redux-form) - works with React Redux to enable html form in React to use 
+Redux to store all of its state
 - A bunch of useful scripts
 
 ## Scripts

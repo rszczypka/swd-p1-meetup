@@ -27,6 +27,9 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div className="login-form">
+        <a href="#" className="tosignup pull-right" onClick={ this.toSignup }>
+          { messages.LOGIN_TO_SIGNUP }
+        </a>
         <h4>{ messages.LOGIN_TITLE }</h4>
         <div className="well">
           <LogIn
@@ -34,9 +37,7 @@ class LoginPage extends React.Component {
             asyncErrors={ this.props.errors }
           />
         </div>
-        <a href="#" className="tosignup" onClick={ this.toSignup }>
-          { messages.LOGIN_TO_SIGNUP }
-        </a>
+
       </div>
     );
   }

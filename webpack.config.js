@@ -61,6 +61,7 @@ module.exports = {
       utils: path.resolve(ROOT_PATH, 'app/src/utils'),
       common: path.resolve(ROOT_PATH, 'common'),
       reducers: path.resolve(ROOT_PATH, 'app/src/reducers'),
+      store: path.resolve(ROOT_PATH, 'app/src/stores'),
       config: path.join(ROOT_PATH, 'config', env),
     },
   },
