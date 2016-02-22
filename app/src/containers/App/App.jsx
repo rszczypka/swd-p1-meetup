@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { restore } from 'actions/auth';
+import ReactDOM from 'react-dom';
 
 export default class App extends React.Component {
   componentWillMount() {
     this.props.dispatch(restore());
+  }
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this).scrollIntoView();
   }
   render() {
     return this.props.children;
