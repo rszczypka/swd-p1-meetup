@@ -76,7 +76,7 @@ module.exports = {
   output: {
     path: PROD ? path.resolve(ROOT_PATH, 'dist') : path.resolve(ROOT_PATH, 'app/build'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: PROD ? 'bundle.min.js' : 'bundle.js',
   },
   devServer: {
     contentBase: path.resolve(ROOT_PATH, 'dist'),
@@ -85,7 +85,19 @@ module.exports = {
     inline: true,
     progress: true
   },
-  plugins: [
+  plugins: PROD ? [
+    new webpack.optimize.UglifyJsPlugin({ minimize: true, compress: true }),
+    new webpack.DefinePlugin({
+      'process.env': Object.keys(process.env).reduce(function(o, k) {
+        o[k] = JSON.stringify(process.env[k]);
+        return o;
+      }, {})
+    }),
+    new HtmlwebpackPlugin({
+      title: 'React BoilerPlate',
+      template: 'index.html'
+    })
+  ] : [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
       title: 'React BoilerPlate',
