@@ -5,11 +5,18 @@ import { Link } from 'react-router';
 import { Event } from 'components';
 import { Alert } from 'react-bootstrap';
 import { dismissAlert } from 'actions/events';
+import ReactDOM from 'react-dom';
 
 class EventsPage extends React.Component {
   constructor(props) {
     super(props);
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+  }
+
+  componentDidMount(){
+    if(this.refs.successAlert){
+      ReactDOM.findDOMNode(this.refs.successAlert).focus();
+    }
   }
 
   handleAlertDismiss() {
@@ -77,7 +84,7 @@ class EventsPage extends React.Component {
     return (
       <div className="events">
         { this.props.asyncMessages.alertVisible &&
-        <Alert bsStyle="success" onDismiss={this.handleAlertDismiss} dismissAfter={3000}>
+        <Alert ref="successAlert" role="alert" bsStyle="success" onDismiss={this.handleAlertDismiss} dismissAfter={5000}>
             {this.props.asyncMessages.messages
               .map((message, key) =>
                 <span

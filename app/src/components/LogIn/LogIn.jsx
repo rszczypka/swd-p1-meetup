@@ -52,11 +52,16 @@ class LogIn extends React.Component {
             name="email"
             disabled={ submitting }
             placeholder={ messages.EMAIL }
+            aria-invalid={ emailInput.error }
+            aria-required
+            aria-describedby="emailInputError"
           />
           {
             emailInput.touched && emailInput.dirty && emailInput.error &&
             <div
               className="text-danger"
+              id="emailInputError"
+              role="alert"
             >
               <span
                 className="label label-danger"
@@ -76,11 +81,16 @@ class LogIn extends React.Component {
             disabled={ submitting }
             placeholder={ messages.PASSWORD }
             name="password"
+            aria-invalid={ passInput.error }
+            aria-required
+            aria-describedby="passInputError"
           />
           {
             passInput.touched && passInput.error &&
             <div
               className="text-danger"
+              id="passInputError"
+              role="alert"
             >
             <span
               className="label label-danger"

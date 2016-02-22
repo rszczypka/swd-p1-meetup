@@ -104,7 +104,7 @@ export default {
   EVENT_NAME_LABEL: 'Event name',
   EVENT_NAME_PLACEHOLDER: 'At least 3 and max 50 characters',
   EVENT_TYPE_LABEL: 'Event type',
-  EVENT_TYPE_PLACEHOLDER: 'Choose from list or type a new one',
+  EVENT_TYPE_PLACEHOLDER: 'Event type: Choose from list or type a new one',
   EVENT_HOST_LABEL: 'Event host (could be individual\'s name or an organization)',
   EVENT_HOST_PLACEHOLDER: 'At least 3 and max 20 characters',
   EVENT_DESCRIPTION_LABEL: 'Optional message to the guests with additional information about the event',
@@ -114,7 +114,7 @@ export default {
   EVENT_LOCATION_LABEL: 'Event location',
   EVENT_LOCATION_PLACEHOLDER: 'Start typing your address',
   EVENT_GUESTS_LABEL: 'Event Guests',
-  EVENT_GUESTS_PLACEHOLDER: 'Choose from list or type a new one',
+  EVENT_GUESTS_PLACEHOLDER: 'Event Guests: Choose from list or type a new one',
   FIELDS_REQUIRED_EVENTS: '* Fields required to add your event',
 
   /* HELP */

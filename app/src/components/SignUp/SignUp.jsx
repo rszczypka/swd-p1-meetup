@@ -61,10 +61,10 @@ class SignUp extends React.Component {
     );
 
     return (
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit } aria-invalid={ asyncErrors.length > 0 } aria-describedby="formAsyncErrors">
         <p>{ messages.FIELDS_REQUIRED }</p>
         <div className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
-          <ul id="login-error" className="list-unstyled">
+          <ul role="alert" id="formAsyncErrors" ref="formAsyncErrors" id="login-error" className="list-unstyled">
             {asyncErrors
               .map((error, key) =>
                 <li
@@ -84,7 +84,7 @@ class SignUp extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="name">{messages.NAME}*</label>
+          <label htmlFor="name">{messages.NAME}<span title="required">*</span></label>
           <input { ...nameInput }
             className="name form-control"
             required
@@ -94,10 +94,15 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={messages.NAME}
             name="name"
+            aria-invalid={ nameInput.error }
+            aria-required
+            aria-describedby="nameInputError"
           />
           { nameInput.touched && nameInput.dirty && nameInput.error &&
           <div
             className="text-danger"
+            id="nameInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -107,7 +112,7 @@ class SignUp extends React.Component {
           className={(emailInput.touched && emailInput.error) ?
           'form-group has-error has-feedback' : 'form-group has-feedback'}
         >
-          <label htmlFor="email">{messages.EMAIL}*</label>
+          <label htmlFor="email">{messages.EMAIL}<span title="required">*</span></label>
           <input { ...emailInput }
             className="email form-control"
             required
@@ -116,10 +121,15 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={messages.EMAIL}
             name="email"
+            aria-invalid={ emailInput.error }
+            aria-required
+            aria-describedby="emailInputError"
           />
           { emailInput.touched && emailInput.error &&
           <div
             className="text-danger"
+            id="emailInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -150,11 +160,16 @@ class SignUp extends React.Component {
                 disabled={ submitting }
                 placeholder={messages.PASSWORD}
                 name="password"
+                aria-invalid={ passInput.error }
+                aria-required
+                aria-describedby="passInputError"
               />
             </OverlayTrigger>
           { passInput.touched && passInput.error &&
           <div
             className="text-danger"
+            id="passInputError"
+            role="alert"
           ><span
             className="label label-danger"
           >error</span> {passInput.error}</div> }
@@ -195,10 +210,15 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={ 'dd/mm/yyyy' }
             name="bday"
+            aria-invalid={ dobInput.error }
+            aria-required
+            aria-describedby="dobInputError"
           />
           { dobInput.touched && dobInput.error &&
           <div
             className="text-danger"
+            id="dobInputError"
+            role="alert"
           >
             <span
               className="label label-danger"

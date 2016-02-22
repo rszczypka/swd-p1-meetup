@@ -75,9 +75,9 @@ class AddEvent extends React.Component {
     const eventGuestsList = ['Mom & Dad only', 'Extended family', 'Close friends', 'Family and close friends', 'Work colleagues'];
 
     return (
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={ handleSubmit } aria-invalid={ asyncErrors.length > 0 } aria-describedby="formAsyncErrors">
         <p>{ messages.FIELDS_REQUIRED_EVENTS }</p>
-        <div className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
+        <div role="alert" id="formAsyncErrors" className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
           <ul id="login-error" className="list-unstyled">
             {asyncErrors
               .map((error, key) =>
@@ -99,7 +99,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="name">{messages.EVENT_NAME_LABEL}*</label>
+          <label htmlFor="name">{messages.EVENT_NAME_LABEL}<span title="required">*</span></label>
           <input { ...nameInput }
             className="name form-control"
             required
@@ -108,12 +108,17 @@ class AddEvent extends React.Component {
             type = "text"
             disabled = { submitting }
             placeholder = { messages.EVENT_NAME_PLACEHOLDER }
+            aria-invalid={ nameInput.error }
+            aria-required
+            aria-describedby="nameInputError"
             name = "name"
             id="name"
           />
           { nameInput.touched && nameInput.dirty && nameInput.error &&
           <div
             className="text-danger"
+            id="nameInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -126,7 +131,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="type">{messages.EVENT_TYPE_LABEL}*</label>
+          <label htmlFor="type">{messages.EVENT_TYPE_LABEL}<span title="required">*</span></label>
           <Combobox { ...typeInput }
             value={ typeInput.value }
             onBlur={ () => typeInput.onBlur(typeInput.value) }
@@ -136,12 +141,17 @@ class AddEvent extends React.Component {
             disabled = { submitting }
             placeholder = { messages.EVENT_TYPE_PLACEHOLDER }
             suggest
+            aria-invalid={ typeInput.error }
+            aria-required
+            aria-describedby="typeInputError"
             name="type"
             id="type"
           />
           { typeInput.touched && typeInput.error &&
           <div
             className="text-danger"
+            role="alert"
+            id="typeInputError"
           >
             <span
               className="label label-danger"
@@ -154,19 +164,24 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="hostName">{messages.EVENT_HOST_LABEL}*</label>
+          <label htmlFor="hostName">{messages.EVENT_HOST_LABEL}<span title="required">*</span></label>
           <input { ...hostInput }
             className="hostName form-control"
             required
             type = "text"
             disabled = { submitting }
             placeholder = { messages.EVENT_HOST_PLACEHOLDER }
+            aria-invalid={ hostInput.error }
+            aria-required
+            aria-describedby="hostInputError"
             name = "hostName"
             id="hostName"
           />
           { hostInput.touched && hostInput.error &&
           <div
             className="text-danger"
+            id="hostInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -179,7 +194,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="start">{messages.EVENT_START_LABEL}*</label>
+          <label htmlFor="start">{messages.EVENT_START_LABEL}<span title="required">*</span></label>
           <DateTimePicker { ...startInput }
             value={ startInput.value }
             min={ today }
@@ -190,7 +205,11 @@ class AddEvent extends React.Component {
             onBlur={ () => startInput.onBlur(startInput.value) }
             onSelect={ (date) => this.handleDate(date,'start') }
             required
+            placeholder = { messages.EVENT_START_LABEL }
             disabled = { submitting }
+            aria-invalid={ startInput.error }
+            aria-required
+            aria-describedby="startInputError"
             type="date"
             name="start"
             id="start"
@@ -202,6 +221,8 @@ class AddEvent extends React.Component {
           { startInput.touched && startInput.error &&
           <div
             className="text-danger"
+            id="startInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -214,7 +235,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="end">{messages.EVENT_END_LABEL}*</label>
+          <label htmlFor="end">{messages.EVENT_END_LABEL}<span title="required">*</span></label>
           <DateTimePicker { ...endInput }
             value={ endInput.value }
             min={ startInput.value }
@@ -227,6 +248,10 @@ class AddEvent extends React.Component {
             required
             type="date"
             disabled = { submitting }
+            placeholder = { messages.EVENT_END_LABEL }
+            aria-invalid={ endInput.error }
+            aria-required
+            aria-describedby="endInputError"
             name="end"
             id="end"
           />
@@ -237,6 +262,8 @@ class AddEvent extends React.Component {
           { endInput.touched && endInput.error &&
           <div
             className="text-danger"
+            id="endInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -249,7 +276,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="location">{messages.EVENT_LOCATION_LABEL}*</label>
+          <label htmlFor="location">{messages.EVENT_LOCATION_LABEL}<span title="required">*</span></label>
           <Geosuggest { ...locationInput }
             value={ locationInput.value }
             inputClassName="location form-control"
@@ -260,6 +287,9 @@ class AddEvent extends React.Component {
             placeholder = { messages.EVENT_LOCATION_PLACEHOLDER }
             onBlur={ () => locationInput.onBlur(locationInput.value) }
             onSuggestSelect={ (suggest) => this.handleGeolocation(suggest) }
+            aria-invalid={ locationInput.error }
+            aria-required
+            aria-describedby="locationInputError"
             name = "location"
             id="location"
           />
@@ -274,6 +304,8 @@ class AddEvent extends React.Component {
           { locationInput.touched && locationInput.error &&
           <div
             className="text-danger"
+            id="locationInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -286,7 +318,7 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="guest">{messages.EVENT_GUESTS_LABEL}*</label>
+          <label htmlFor="guest">{messages.EVENT_GUESTS_LABEL}<span title="required">*</span></label>
           <Combobox { ...guestsInput }
             value={ guestsInput.value }
             onBlur={ () => guestsInput.onBlur(guestsInput.value) }
@@ -296,12 +328,17 @@ class AddEvent extends React.Component {
             disabled = { submitting }
             placeholder = { messages.EVENT_GUESTS_PLACEHOLDER }
             suggest
+            aria-invalid={ guestsInput.error }
+            aria-required
+            aria-describedby="guestsInputError"
             name="guests"
             id="guests"
           />
           { guestsInput.touched && guestsInput.error &&
           <div
             className="text-danger"
+            id="guestsInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
@@ -323,10 +360,15 @@ class AddEvent extends React.Component {
             placeholder = { messages.EVENT_DESCRIPTION_PLACEHOLDER }
             name = "description"
             id="description"
+            aria-invalid={ descriptionInput.error }
+            aria-required
+            aria-describedby="descriptionInputError"
           ></textarea>
           { descriptionInput.touched && descriptionInput.dirty && descriptionInput.error &&
           <div
             className="text-danger"
+            id="descriptionInputError"
+            role="alert"
           >
             <span
               className="label label-danger"
