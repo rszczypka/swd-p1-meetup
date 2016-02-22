@@ -6,6 +6,7 @@ import { Event } from 'components';
 import { Alert } from 'react-bootstrap';
 import { dismissAlert } from 'actions/events';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 
 class EventsPage extends React.Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class EventsPage extends React.Component {
         </div>
       )
     }
-    if(this.props.hasreceiveddata && this.props.events.length === 0) {
+    if(this.props.hasreceiveddata && _.size(this.props.events) === 0) {
       return (
         <div className="events">
           <div className="page-header">

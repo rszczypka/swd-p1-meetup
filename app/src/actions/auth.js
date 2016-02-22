@@ -64,7 +64,7 @@ export function fetchUserData(id) {
 export function fetchEventsData(id) {
   return (dispatch) => {
     eventsRef.orderByChild('uid').equalTo(id).once('value', function (snapshot) {
-      dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() });
+      dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() || {} });
     });
   };
 }

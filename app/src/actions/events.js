@@ -9,7 +9,7 @@ const eventsRef = fireRef.child('events');
 export function startListeningToEvents(id) {
   return (dispatch) => {
     eventsRef.orderByChild('uid').equalTo(id).on('value', (snapshot) => {
-      dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() });
+      dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() || {} });
     });
   };
 }
