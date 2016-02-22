@@ -16,11 +16,11 @@ export default class Event extends React.Component {
           <div className="event-dates">
             <div className="fa fa-clock-o" title="Event dates"></div>
             <div className="start-date">
-              { Moment(event.start).format('ddd, MMM Do YYYY, HH:mm') }
+              From { Moment(event.start).format('ddd, MMM Do YYYY, HH:mm') }
             </div>
-            <div className="start-date">
-              { Moment(event.end).format('ddd, MMM Do YYYY, HH:mm') }
-            </div>
+            { event.start!==event.end && <div className="end-date">
+              To { Moment(event.end).format('ddd, MMM Do YYYY, HH:mm') }
+            </div> }
           </div>
           <div className="event-location event-details">
             <span className="fa fa-map-marker" title="Event location"></span>
