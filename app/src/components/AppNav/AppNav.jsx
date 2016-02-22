@@ -11,12 +11,10 @@ export default class AppNav extends React.Component {
   }
 
   collapse (e) {
-    console.log('collapse');
     return this.setState({ expanded: false });
   }
 
   handleToggle (e) {
-    console.log('handleToggle');
     if(this.state !== null) {
       return this.setState({ expanded: !this.state.expanded })
     }
