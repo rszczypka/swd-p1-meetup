@@ -7,34 +7,39 @@ export default class LandingNav extends React.Component {
   constructor() {
     super();
     this.handleToggle = this.handleToggle.bind(this);
+    this.collapse = this.collapse.bind(this);
   }
 
-  getInitialState(){
-    return { expanded: false};
+  collapse (e) {
+    console.log('collapse');
+    return this.setState({ expanded: false });
   }
 
   handleToggle (e) {
-    if(this.state === null) return this.setState({ expanded: false });
-    return this.setState({ expanded: !this.state.expanded })
+    console.log('handleToggle');
+    if(this.state !== null) {
+      return this.setState({ expanded: !this.state.expanded })
+    }
+    return this.setState({ expanded: true })
   }
 
   render() {
     return (
-      <Navbar inverse expanded={ this.state.expanded } onToggle={ this.handleToggle }>
+      <Navbar inverse expanded={ this.state === null ? false : this.state.expanded } onToggle={ this.handleToggle }>
           <Navbar.Header>
-            <Navbar.Brand  onClick={ this.handleToggle }>
-              <Link to="/">
+            <Navbar.Brand>
+              <Link to="/" onClick={ this.collapse }>
                 {messages.TITLE}</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav className="navbar-right">
-              <li onClick={ this.handleToggle }>
+              <li onClick={ this.collapse }>
                 <Link to="/signup" className="signup underline">
                 {messages.LANDING_SIGNUP}</Link>
               </li>
-              <li onClick={ this.handleToggle }>
+              <li onClick={ this.collapse }>
                 <Link to="/login" className="login">
                 {messages.LANDING_LOGIN}</Link>
               </li>

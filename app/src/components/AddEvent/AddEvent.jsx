@@ -68,8 +68,7 @@ class AddEvent extends React.Component {
       valid,
       handleSubmit,
       asyncErrors,
-      submitting,
-      fullName
+      submitting
       } = this.props;
 
     const eventTypesList = ['Birthday party', 'Conference talk', 'Wedding'];
@@ -158,7 +157,6 @@ class AddEvent extends React.Component {
           <label htmlFor="hostName">{messages.EVENT_HOST_LABEL}*</label>
           <input { ...hostInput }
             className="hostName form-control"
-            value={ fullName }
             required
             type = "text"
             disabled = { submitting }
@@ -357,4 +355,8 @@ export default reduxForm({
   form: 'addevent',
   fields,
   validate: addEventValidation
-})(AddEvent);
+}, state => ({ // mapStateToProps
+  initialValues: {
+    hostInput: state.loggedUser.data.fullName===undefined ? '' : state.loggedUser.data.fullName
+  }
+}))(AddEvent);

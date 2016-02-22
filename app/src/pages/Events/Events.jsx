@@ -35,6 +35,17 @@ class EventsPage extends React.Component {
       );
     }).reverse();
 
+    const loadingEvents = (
+      <div className="text-center">
+        <div className="well well-sm">
+          <p>
+            <i className="fa fa-3x fa-spinner"></i>
+          </p>
+          <p>{ messages.LOADINGEVENTS }</p>
+        </div>
+      </div>
+    );
+
     const noEvents = (
       <div className="no-events text-center">
         <div className="well well-sm">
@@ -50,6 +61,16 @@ class EventsPage extends React.Component {
     );
 
     if(!this.props.hasreceiveddata) {
+      return (
+        <div className="events">
+          <div className="page-header">
+            <h3>{messages.EVENTS_TITLE}</h3>
+          </div>
+          { loadingEvents }
+        </div>
+      )
+    }
+    if(this.props.hasreceiveddata && this.props.events.length === 0) {
       return (
         <div className="events">
           <div className="page-header">

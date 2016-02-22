@@ -88,6 +88,8 @@ export default {
   LANDING_SIGNUP: 'Sign up',
   LANDING_LOGIN: 'Log in',
 
+  LOADINGEVENTS: 'Please wait while your events are being fetched',
+
   /* ABOUT */
   ABOUT_TITLE: 'About',
   ABOUT_TEXT: `Meet-up Event Planner in react has been the

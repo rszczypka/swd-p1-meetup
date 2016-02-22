@@ -1,4 +1,6 @@
-export default function events(state = {}, action) {
+import initialState from '../stores/initialState';
+
+export default function events(state, action) {
   let newstate;
   switch (action.type) {
     case 'RECEIVE_EVENTS_DATA':
@@ -28,6 +30,6 @@ export default function events(state = {}, action) {
       return newstate;
 
     default:
-      return state;
+      return state || initialState.events;
   }
 }

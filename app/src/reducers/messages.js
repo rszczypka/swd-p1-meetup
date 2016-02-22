@@ -1,5 +1,6 @@
+import initialState from '../stores/initialState';
 
-export default function events(state = [], action) {
+export default function events(state, action) {
   switch (action.type) {
     case 'DISPLAY_MESSAGE':
       return Object.assign({}, state, {
@@ -11,6 +12,6 @@ export default function events(state = [], action) {
         alertVisible: false,
         messages: undefined
       });
-    default: return state;
+    default: return state || initialState.messages.events;
   }
 }

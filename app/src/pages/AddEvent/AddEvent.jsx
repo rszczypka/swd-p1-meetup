@@ -52,7 +52,6 @@ class AddEventPage extends React.Component {
           <AddEvent
             onSubmit={ this.handleSubmit }
             asyncErrors={ this.props.errors || [] }
-            fullName={ this.props.fullName || '' }
           />
         </div>
       </div>
@@ -64,15 +63,13 @@ AddEventPage.propTypes = {
   dispatch: React.PropTypes.func,
   errors: React.PropTypes.array,
   cancel: React.PropTypes.func,
-  events: React.PropTypes.object.isRequired,
-  fullName: React.PropTypes.string
+  events: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     errors: state.errors.events || [],
-    events: state.events || {},
-    fullName: state.loggedUser.data.fullName || ''
+    events: state.events || {}
   };
 }
 
