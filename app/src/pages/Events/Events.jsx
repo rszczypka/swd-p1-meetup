@@ -33,7 +33,7 @@ class EventsPage extends React.Component {
       <div className="text-center">
         <div className="well well-sm">
           <p>
-            <i className="fa fa-3x fa-spinner"></i>
+            <i className="fa fa-3x fa-spinner fa-spin"></i>
           </p>
           <p>{ messages.LOADINGEVENTS }</p>
         </div>
@@ -106,9 +106,9 @@ class EventsPage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    events: state.events.data || {},
-    asyncMessages: state.messages || {},
-    hasreceiveddata: state.events.hasreceiveddata || false
+    events: state.events.data,
+    asyncMessages: state.messages,
+    hasreceiveddata: state.events.hasreceiveddata
   };
 }
 

@@ -68,8 +68,8 @@ AddEventPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    errors: state.errors.events || [],
-    events: state.events || {}
+    errors: state.errors.events,
+    events: state.events
   };
 }
 
