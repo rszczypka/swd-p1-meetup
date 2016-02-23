@@ -105,6 +105,7 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={messages.NAME}
             name="name"
+            id="name"
             aria-invalid={ nameInput.error }
             aria-required
             aria-describedby="nameInputError"
@@ -132,6 +133,7 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={messages.EMAIL}
             name="email"
+            id="email"
             aria-invalid={ emailInput.error }
             aria-required
             aria-describedby="emailInputError"
@@ -155,6 +157,8 @@ class SignUp extends React.Component {
             <input { ...showPassword }
               type="checkbox"
               value=""
+              name="showPassword"
+              id="showPassword"
             /> { 'Show password' }
           </label>
             <OverlayTrigger
@@ -171,6 +175,7 @@ class SignUp extends React.Component {
                 disabled={ submitting }
                 placeholder={messages.PASSWORD}
                 name="password"
+                id="password"
                 aria-invalid={ passInput.error }
                 aria-required
                 aria-describedby="passInputError"
@@ -195,6 +200,7 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={messages.EMPLOYER}
             name="organization"
+            id="organization"
           />
         </div>
         <div className={ 'form-group has-feedback' }>
@@ -206,6 +212,7 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={ messages.JOBTITLE }
             name="organization-title"
+            id="organization-title"
           />
         </div>
         <div
@@ -221,6 +228,7 @@ class SignUp extends React.Component {
             disabled={ submitting }
             placeholder={ 'dd/mm/yyyy' }
             name="bday"
+            id="bday"
             aria-invalid={ dobInput.error }
             aria-required
             aria-describedby="dobInputError"

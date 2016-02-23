@@ -50,6 +50,7 @@ class LogIn extends React.Component {
             autoComplete="email"
             type="email"
             name="email"
+            id="email"
             disabled={ submitting }
             placeholder={ messages.EMAIL }
             aria-invalid={ emailInput.error }
@@ -81,6 +82,7 @@ class LogIn extends React.Component {
             disabled={ submitting }
             placeholder={ messages.PASSWORD }
             name="password"
+            id="password"
             aria-invalid={ passInput.error }
             aria-required
             aria-describedby="passInputError"
