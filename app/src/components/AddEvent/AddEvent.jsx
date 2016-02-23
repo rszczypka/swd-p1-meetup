@@ -310,7 +310,7 @@ class AddEvent extends React.Component {
             value={ locationInput.value }
             inputClassName="location form-control"
             required
-            autoComplete={false}
+            autoComplete="off"
             type = "text"
             disabled = { submitting }
             placeholder = { messages.EVENT_LOCATION_PLACEHOLDER }
