@@ -1,4 +1,4 @@
-import {browserHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 import config from '../../../config/development';
 import Firebase from 'firebase';
 import { startListeningToEvents } from 'actions/events';
@@ -55,7 +55,7 @@ export function logoutAction() {
 
 export function fetchUserData(id) {
   return (dispatch) => {
-    usersRef.child(id).once('value', function (snapshot) {
+    usersRef.child(id).once('value', (snapshot) => {
       dispatch({ type: 'RECEIVE_USER_ADDITIONAL_DATA', data: snapshot.val() });
     });
   };
@@ -63,7 +63,7 @@ export function fetchUserData(id) {
 
 export function fetchEventsData(id) {
   return (dispatch) => {
-    eventsRef.orderByChild('uid').equalTo(id).once('value', function (snapshot) {
+    eventsRef.orderByChild('uid').equalTo(id).once('value', (snapshot) => {
       dispatch({ type: 'RECEIVE_EVENTS_DATA', data: snapshot.val() || {} });
     });
   };

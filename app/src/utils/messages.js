@@ -107,7 +107,8 @@ export default {
   EVENT_TYPE_PLACEHOLDER: 'Event type: Choose from list or type a new one',
   EVENT_HOST_LABEL: 'Event host (could be individual\'s name or an organization)',
   EVENT_HOST_PLACEHOLDER: 'At least 3 and max 20 characters',
-  EVENT_DESCRIPTION_LABEL: 'Optional message to the guests with additional information about the event',
+  EVENT_DESCRIPTION_LABEL: 'Optional message to the guests with ' +
+  'additional information about the event',
   EVENT_DESCRIPTION_PLACEHOLDER: 'Maximum 256 characters',
   EVENT_START_LABEL: 'Event start date and time',
   EVENT_END_LABEL: 'Event end date and time',

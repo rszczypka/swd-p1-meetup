@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { LogIn } from 'components';
 import { login } from 'actions/auth';
-import {browserHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 import messages from 'utils/messages';
 
 class LoginPage extends React.Component {

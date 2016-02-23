@@ -10,20 +10,24 @@ export default class LandingNav extends React.Component {
     this.collapse = this.collapse.bind(this);
   }
 
-  collapse (e) {
+  collapse() {
     return this.setState({ expanded: false });
   }
 
-  handleToggle (e) {
-    if(this.state !== null) {
-      return this.setState({ expanded: !this.state.expanded })
+  handleToggle() {
+    if (this.state !== null) {
+      return this.setState({ expanded: !this.state.expanded });
     }
-    return this.setState({ expanded: true })
+    return this.setState({ expanded: true });
   }
 
   render() {
     return (
-      <Navbar inverse expanded={ this.state === null ? false : this.state.expanded } onToggle={ this.handleToggle }>
+      <Navbar
+        inverse
+        expanded={ this.state === null ? false : this.state.expanded }
+        onToggle={ this.handleToggle }
+      >
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/" onClick={ this.collapse }>

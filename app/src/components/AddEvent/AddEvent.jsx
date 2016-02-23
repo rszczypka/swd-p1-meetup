@@ -1,5 +1,6 @@
+/* eslint prefer-template:0, react/jsx-no-bind:0 */
 import React from 'react';
-import { reduxForm, addArrayValue } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import messages from 'utils/messages';
 import addEventValidation from './addEventValidation';
 import 'react-widgets/lib/less/react-widgets.less';
@@ -10,8 +11,8 @@ import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import Geosuggest from 'react-geosuggest';
 
 momentLocalizer(Moment);
-let today = new Date();
-today.setHours(0,0,0,0);
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
 const fields = [
   'nameInput',
@@ -42,10 +43,10 @@ class AddEvent extends React.Component {
   }
 
   handleDate(date, name) {
-    this.props.fields[name+'StringInput'].onChange(date.toString());
-    if(name === 'start' && !this.props.fields.endInput.value) {
+    this.props.fields[name + 'StringInput'].onChange(date.toString());
+    if (name === 'start' && !this.props.fields.endInput.value) {
       this.props.fields.endInput.onChange(date);
-      this.props.fields['endStringInput'].onChange(date.toString());
+      this.props.fields.endStringInput.onChange(date.toString());
     }
   }
 
@@ -71,13 +72,32 @@ class AddEvent extends React.Component {
       submitting
       } = this.props;
 
-    const eventTypesList = ['Birthday party', 'Conference talk', 'Wedding'];
-    const eventGuestsList = ['Mom & Dad only', 'Extended family', 'Close friends', 'Family and close friends', 'Work colleagues'];
+    const eventTypesList = [
+      'Birthday party',
+      'Conference talk',
+      'Wedding'
+    ];
+
+    const eventGuestsList = [
+      'Mom & Dad only',
+      'Extended family',
+      'Close friends',
+      'Family and close friends',
+      'Work colleagues'
+    ];
 
     return (
-      <form onSubmit={ handleSubmit } aria-invalid={ asyncErrors.length > 0 } aria-describedby="formAsyncErrors">
+      <form
+        onSubmit={ handleSubmit }
+        aria-invalid={ asyncErrors.length > 0 }
+        aria-describedby="formAsyncErrors"
+      >
         <p>{ messages.FIELDS_REQUIRED_EVENTS }</p>
-        <div role="alert" id="formAsyncErrors" className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
+        <div
+          role="alert"
+          id="formAsyncErrors"
+          className={ (asyncErrors.length) ? 'alert alert-danger' : '' }
+        >
           <ul id="login-error" className="list-unstyled">
             {asyncErrors
               .map((error, key) =>
@@ -164,7 +184,12 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="hostName">{messages.EVENT_HOST_LABEL}<span title="required">*</span></label>
+          <label
+            htmlFor="hostName"
+          >
+            {messages.EVENT_HOST_LABEL}
+            <span title="required">*</span>
+          </label>
           <input { ...hostInput }
             className="hostName form-control"
             required
@@ -203,7 +228,7 @@ class AddEvent extends React.Component {
             parse={ str => new Date(str) }
             step={ 30 }
             onBlur={ () => startInput.onBlur(startInput.value) }
-            onSelect={ (date) => this.handleDate(date,'start') }
+            onSelect={ (date) => this.handleDate(date, 'start') }
             required
             placeholder = { messages.EVENT_START_LABEL }
             disabled = { submitting }
@@ -244,7 +269,7 @@ class AddEvent extends React.Component {
             parse={ str => new Date(str) }
             step={ 30 }
             onBlur={ () => endInput.onBlur(endInput.value) }
-            onSelect={ (date) => this.handleDate(date,'end') }
+            onSelect={ (date) => this.handleDate(date, 'end') }
             required
             type="date"
             disabled = { submitting }
@@ -276,7 +301,11 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="location">{messages.EVENT_LOCATION_LABEL}<span title="required">*</span></label>
+          <label
+            htmlFor="location"
+          >{messages.EVENT_LOCATION_LABEL}
+            <span title="required">*</span>
+          </label>
           <Geosuggest { ...locationInput }
             value={ locationInput.value }
             inputClassName="location form-control"
@@ -318,7 +347,12 @@ class AddEvent extends React.Component {
           'form-group has-error has-feedback' : 'form-group has-feedback'
           }
         >
-          <label htmlFor="guest">{messages.EVENT_GUESTS_LABEL}<span title="required">*</span></label>
+          <label
+            htmlFor="guest"
+          >
+            {messages.EVENT_GUESTS_LABEL}
+            <span title="required">*</span>
+          </label>
           <Combobox { ...guestsInput }
             value={ guestsInput.value }
             onBlur={ () => guestsInput.onBlur(guestsInput.value) }
@@ -399,6 +433,6 @@ export default reduxForm({
   validate: addEventValidation
 }, state => ({ // mapStateToProps
   initialValues: {
-    hostInput: state.loggedUser.data.fullName===undefined ? '' : state.loggedUser.data.fullName
+    hostInput: state.loggedUser.data.fullName === undefined ? '' : state.loggedUser.data.fullName
   }
 }))(AddEvent);

@@ -17,4 +17,3 @@ export default class AppLayout extends React.Component {
 AppLayout.propTypes = {
   children: React.PropTypes.object
 };
-

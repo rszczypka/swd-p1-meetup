@@ -1,3 +1,4 @@
+/* eslint prefer-arrow-callback:0 */
 import React from 'react';
 import { connect } from 'react-redux';
 import messages from 'utils/messages';
@@ -14,8 +15,8 @@ class EventsPage extends React.Component {
     this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
   }
 
-  componentDidMount(){
-    if(this.refs.successAlert){
+  componentDidMount() {
+    if (this.refs.successAlert) {
       ReactDOM.findDOMNode(this.refs.successAlert).focus();
     }
   }
@@ -25,13 +26,13 @@ class EventsPage extends React.Component {
   }
 
   render() {
-    var p = this.props;
-    const rows = Object.keys(p.events).map(function (key, i) {
+    const p = this.props;
+    const rows = Object.keys(p.events).map(function (key) {
       return (
         <div>
           <Event
-          key={ key }
-          event={ p.events[key] }
+            key={ key }
+            event={ p.events[key] }
           />
         </div>
       );
@@ -62,7 +63,7 @@ class EventsPage extends React.Component {
       </div>
     );
 
-    if(!this.props.hasreceiveddata) {
+    if (!this.props.hasreceiveddata) {
       return (
         <div className="events">
           <div className="page-header">
@@ -70,9 +71,9 @@ class EventsPage extends React.Component {
           </div>
           { loadingEvents }
         </div>
-      )
+      );
     }
-    if(this.props.hasreceiveddata && _.size(this.props.events) === 0) {
+    if (this.props.hasreceiveddata && _.size(this.props.events) === 0) {
       return (
         <div className="events">
           <div className="page-header">
@@ -80,16 +81,22 @@ class EventsPage extends React.Component {
           </div>
           { noEvents }
         </div>
-      )
+      );
     }
     return (
       <div className="events">
         { this.props.asyncMessages.alertVisible &&
-        <Alert ref="successAlert" role="alert" bsStyle="success" onDismiss={this.handleAlertDismiss} dismissAfter={5000}>
+        <Alert
+          ref="successAlert"
+          role="alert"
+          bsStyle="success"
+          onDismiss={this.handleAlertDismiss}
+          dismissAfter={5000}
+        >
             {this.props.asyncMessages.messages
               .map((message, key) =>
                 <span
-                  key={key}
+                  key={ key }
                 >
                   <span
                     className="label label-success"
@@ -110,7 +117,12 @@ class EventsPage extends React.Component {
   }
 }
 
-
+EventsPage.propTypes = {
+  dispatch: React.PropTypes.func,
+  hasreceiveddata: React.PropTypes.bool,
+  events: React.PropTypes.object,
+  asyncMessages: React.PropTypes.object
+};
 
 function mapStateToProps(state) {
   return {

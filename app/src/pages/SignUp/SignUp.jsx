@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Components from 'components';
 import { signup } from 'actions/auth';
-import {browserHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 import messages from 'utils/messages';
 
 class SignUp extends React.Component {

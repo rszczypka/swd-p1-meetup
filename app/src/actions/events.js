@@ -1,6 +1,6 @@
 import config from '../../../config/development';
 import Firebase from 'firebase';
-import {browserHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 
 
 const fireRef = new Firebase(config.firebaseUrl);
@@ -77,11 +77,11 @@ export function submitNewEvent(content) {
     const messages = [];
     const state = getState();
     const uid = state.loggedUser.uid;
-    content = Object.assign({}, content, {
-      uid: uid
+    const fullContent = Object.assign({}, content, {
+      uid
     });
 
-    return  eventsRef.push().set(content, (error) => {
+    return eventsRef.push().set(fullContent, (error) => {
       if (error) {
         errors.push(error.message);
         dispatch({ type: 'DISPLAY_ERROR', errors });

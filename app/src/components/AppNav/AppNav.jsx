@@ -10,20 +10,24 @@ export default class AppNav extends React.Component {
     this.collapse = this.collapse.bind(this);
   }
 
-  collapse (e) {
+  collapse() {
     return this.setState({ expanded: false });
   }
 
-  handleToggle (e) {
-    if(this.state !== null) {
-      return this.setState({ expanded: !this.state.expanded })
+  handleToggle() {
+    if (this.state !== null) {
+      return this.setState({ expanded: !this.state.expanded });
     }
-    return this.setState({ expanded: true })
+    return this.setState({ expanded: true });
   }
 
   render() {
     return (
-      <Navbar inverse expanded={ this.state === null ? false : this.state.expanded } onToggle={ this.handleToggle }>
+      <Navbar
+        inverse
+        expanded={ this.state === null ? false : this.state.expanded }
+        onToggle={ this.handleToggle }
+      >
         <div className="container-fluid">
           <Navbar.Header>
             <Navbar.Brand>
@@ -35,12 +39,23 @@ export default class AppNav extends React.Component {
           <Navbar.Collapse>
             <Nav className="navbar-right">
               <li>
-                <Link to="/" className="events" onClick={ this.collapse } activeClassName="active" onlyActiveOnIndex>
+                <Link
+                  to="/"
+                  className="events"
+                  onClick={ this.collapse }
+                  activeClassName="active"
+                  onlyActiveOnIndex
+                >
                   { messages.EVENTS_TITLE }
                 </Link>
               </li>
               <li>
-                <Link to="/logout" onClick={ this.collapse } className="logout" activeClassName="active">
+                <Link
+                  to="/logout"
+                  onClick={ this.collapse }
+                  className="logout"
+                  activeClassName="active"
+                >
                   { messages.UA_LOGOUT } <span className="fa fa-sign-out"></span>
                 </Link>
               </li>

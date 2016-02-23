@@ -1,3 +1,4 @@
+/* eslint react/jsx-no-bind:0 */
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import messages from 'utils/messages';
@@ -61,10 +62,20 @@ class SignUp extends React.Component {
     );
 
     return (
-      <form onSubmit={ handleSubmit } aria-invalid={ asyncErrors.length > 0 } aria-describedby="formAsyncErrors">
+      <form
+        onSubmit={ handleSubmit }
+        aria-invalid={ asyncErrors.length > 0 }
+        aria-describedby="formAsyncErrors"
+      >
         <p>{ messages.FIELDS_REQUIRED }</p>
         <div className={ (asyncErrors.length) ? 'alert alert-danger' : '' }>
-          <ul role="alert" id="formAsyncErrors" ref="formAsyncErrors" id="login-error" className="list-unstyled">
+          <ul
+            role="alert"
+            id="formAsyncErrors"
+            ref="formAsyncErrors"
+            id="login-error"
+            className="list-unstyled"
+          >
             {asyncErrors
               .map((error, key) =>
                 <li
@@ -147,7 +158,7 @@ class SignUp extends React.Component {
             /> { 'Show password' }
           </label>
             <OverlayTrigger
-              ref='passOverlay'
+              ref="passOverlay"
               trigger="click"
               placement="top"
               overlay={ passwordPopover }

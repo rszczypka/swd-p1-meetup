@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AddEvent } from 'components';
-import {browserHistory as history } from 'react-router';
+import { browserHistory as history } from 'react-router';
 import messages from 'utils/messages';
 import { submitNewEvent } from 'actions/events';
 
@@ -36,7 +36,7 @@ class AddEventPage extends React.Component {
 
   cancel(e) {
     e.preventDefault();
-    history.goBack() || history.push('/');
+    history.push('/');
   }
 
   render() {

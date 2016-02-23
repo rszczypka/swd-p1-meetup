@@ -1,3 +1,4 @@
+/* eslint new-cap:0, space-infix-ops:0, prefer-template:0 */
 import React from 'react';
 import Moment from 'moment';
 
@@ -28,7 +29,7 @@ export default class Event extends React.Component {
               <a
                 target="_blank"
                 href={ 'https://www.google.com/maps/preview/@'+event.locationLat+','+event.locationLng+',8z' }
-                > { event.location }
+              > { event.location }
               </a>
             </span>
           </div>
