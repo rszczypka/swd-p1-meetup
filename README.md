@@ -75,14 +75,6 @@ Redux to store all of its state
 
 ## Scripts
 
-- **npm run test**
-
-     Runs unit tests
-
-- **npm run test:watch**
-
-     Watches for changes to run unit tests
-
 - **npm run build**
 
      Bundles the application
@@ -102,4 +94,3 @@ Redux to store all of its state
 - **npm run clean**
 
     Removes the bundled code and the production ready files
-
