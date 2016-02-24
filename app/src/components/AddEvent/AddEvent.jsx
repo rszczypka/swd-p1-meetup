@@ -8,6 +8,8 @@ import Combobox from 'react-widgets/lib/Combobox';
 import MaskedInput from 'react-maskedinput';
 import Geosuggest from 'react-geosuggest';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
+import _ from 'lodash';
 
 const fields = [
   'nameInput',
@@ -26,6 +28,7 @@ class AddEvent extends React.Component {
   constructor() {
     super();
     this.handleGeolocation = this.handleGeolocation.bind(this);
+    this.handleStartDateCopy = this.handleStartDateCopy.bind(this);
   }
 
   handleGeolocation(suggest) {
@@ -33,6 +36,21 @@ class AddEvent extends React.Component {
     this.props.fields.locationLatInput.onChange(suggest.location.lat);
     this.props.fields.locationLngInput.onChange(suggest.location.lng);
     ReactDOM.findDOMNode(this.refs.guestsInput).focus();
+  }
+
+  handleStartDateCopy() {
+    this.props.fields.startInput.onBlur(this.props.fields.startInput.value);
+    const startDate = moment(this.props.fields.startInput.value, 'DD/MM/YYYY HH:mm');
+    if (startDate.isValid() && startDate.isAfter(moment())) {
+      if (_.isEmpty(this.props.fields.endInput.value)) {
+        this.props.fields.endInput.onChange(this.props.fields.startInput.value);
+      } else {
+        const endDate = moment(this.props.fields.endInput.value, 'DD/MM/YYYY HH:mm');
+        if (startDate.isAfter(endDate) || !endDate.isValid()) {
+          this.props.fields.endInput.onChange(this.props.fields.startInput.value);
+        }
+      }
+    }
   }
 
   render() {
@@ -210,6 +228,7 @@ class AddEvent extends React.Component {
             autoComplete="on"
             disabled={ submitting }
             placeholder={ 'dd/mm/yyyy hh:mm' }
+            onBlur={ () => this.handleStartDateCopy() }
             name="start"
             required
             id="start"
