@@ -7,7 +7,7 @@ const addEventValidation = validation.createValidator({
   hostInput: [validation.required, validation.minLength(3), validation.maxLength(20)],
   startInput: [validation.required, validation.dateAndTime],
   endInput: [validation.required, validation.dateAndTime, validation.laterThan('startInput')],
-  locationInput: [validation.required, validation.minLength(3), validation.maxLength(50)],
+  locationInput: [validation.required, validation.minLength(3)],
   guestsInput: [validation.required, validation.minLength(3), validation.maxLength(20)],
   descriptionInput: [validation.maxLength(256)]
 });
