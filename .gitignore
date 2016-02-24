@@ -1,7 +1,6 @@
 node_modules/
 build/
 dist/
-firebase.json
 npm-debug.log
 .DS_Store
 .idea/
