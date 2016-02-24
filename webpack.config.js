@@ -95,13 +95,15 @@ module.exports = {
     }),
     new HtmlwebpackPlugin({
       title: 'React BoilerPlate',
-      template: 'index.html'
+      template: 'index.html',
+      favicon: 'favicon.ico'
     })
   ] : [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlwebpackPlugin({
       title: 'React BoilerPlate',
-      template: 'index.html'
+      template: 'index.html',
+      favicon: 'favicon.ico'
     })
   ]
 };
