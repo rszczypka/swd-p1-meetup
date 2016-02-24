@@ -4,24 +4,17 @@ import { reduxForm } from 'redux-form';
 import messages from 'utils/messages';
 import addEventValidation from './addEventValidation';
 import 'react-widgets/lib/less/react-widgets.less';
-import Moment from 'moment';
 import Combobox from 'react-widgets/lib/Combobox';
-import DateTimePicker from 'react-widgets/lib/DateTimePicker';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import MaskedInput from 'react-maskedinput';
 import Geosuggest from 'react-geosuggest';
-
-momentLocalizer(Moment);
-const today = new Date();
-today.setHours(0, 0, 0, 0);
+import ReactDOM from 'react-dom';
 
 const fields = [
   'nameInput',
   'typeInput',
   'hostInput',
   'startInput',
-  'startStringInput',
   'endInput',
-  'endStringInput',
   'guestsInput',
   'locationInput',
   'locationLatInput',
@@ -33,21 +26,13 @@ class AddEvent extends React.Component {
   constructor() {
     super();
     this.handleGeolocation = this.handleGeolocation.bind(this);
-    this.handleDate = this.handleDate.bind(this);
   }
 
   handleGeolocation(suggest) {
     this.props.fields.locationInput.onChange(suggest.label);
     this.props.fields.locationLatInput.onChange(suggest.location.lat);
     this.props.fields.locationLngInput.onChange(suggest.location.lng);
-  }
-
-  handleDate(date, name) {
-    this.props.fields[name + 'StringInput'].onChange(date.toString());
-    if (name === 'start' && !this.props.fields.endInput.value) {
-      this.props.fields.endInput.onChange(date);
-      this.props.fields.endStringInput.onChange(date.toString());
-    }
+    ReactDOM.findDOMNode(this.refs.guestsInput).focus();
   }
 
   render() {
@@ -57,9 +42,7 @@ class AddEvent extends React.Component {
         typeInput,
         hostInput,
         startInput,
-        startStringInput,
         endInput,
-        endStringInput,
         guestsInput,
         locationInput,
         locationLatInput,
@@ -220,28 +203,19 @@ class AddEvent extends React.Component {
           }
         >
           <label htmlFor="start">{messages.EVENT_START_LABEL}<span title="required">*</span></label>
-          <DateTimePicker { ...startInput }
-            value={ startInput.value }
-            min={ today }
-            format={ "lll" }
-            editFormat={ "lll" }
-            parse={ str => new Date(str) }
-            step={ 30 }
-            onBlur={ () => startInput.onBlur(startInput.value) }
-            onSelect={ (date) => this.handleDate(date, 'start') }
+          <MaskedInput { ...startInput }
+            className="name form-control"
+            mask="11/11/1111 11:11"
+            type="text"
+            autoComplete="on"
+            disabled={ submitting }
+            placeholder={ 'dd/mm/yyyy hh:mm' }
+            name="start"
             required
-            placeholder = { messages.EVENT_START_LABEL }
-            disabled = { submitting }
+            id="start"
             aria-invalid={ startInput.error }
             aria-required
             aria-describedby="startInputError"
-            type="date"
-            name="start"
-            id="start"
-          />
-          <input { ...startStringInput }
-            type="hidden"
-            value={ startStringInput.value }
           />
           { startInput.touched && startInput.error &&
           <div
@@ -261,28 +235,19 @@ class AddEvent extends React.Component {
           }
         >
           <label htmlFor="end">{messages.EVENT_END_LABEL}<span title="required">*</span></label>
-          <DateTimePicker { ...endInput }
-            value={ endInput.value }
-            min={ startInput.value }
-            format={ "lll" }
-            editFormat={ "lll" }
-            parse={ str => new Date(str) }
-            step={ 30 }
-            onBlur={ () => endInput.onBlur(endInput.value) }
-            onSelect={ (date) => this.handleDate(date, 'end') }
+          <MaskedInput { ...endInput }
+            className="name form-control"
+            mask="11/11/1111 11:11"
+            type="text"
+            autoComplete="on"
+            disabled={ submitting }
+            placeholder={ 'dd/mm/yyyy hh:mm' }
+            name="end"
             required
-            type="date"
-            disabled = { submitting }
-            placeholder = { messages.EVENT_END_LABEL }
+            id="end"
             aria-invalid={ endInput.error }
             aria-required
             aria-describedby="endInputError"
-            name="end"
-            id="end"
-          />
-          <input { ...endStringInput }
-            type="hidden"
-            value={ endStringInput.value }
           />
           { endInput.touched && endInput.error &&
           <div
@@ -308,6 +273,7 @@ class AddEvent extends React.Component {
           </label>
           <Geosuggest { ...locationInput }
             value={ locationInput.value }
+            ref="locationInput"
             inputClassName="location form-control"
             required
             autoComplete="off"
@@ -354,6 +320,7 @@ class AddEvent extends React.Component {
             <span title="required">*</span>
           </label>
           <Combobox { ...guestsInput }
+            ref="guestsInput"
             value={ guestsInput.value }
             onBlur={ () => guestsInput.onBlur(guestsInput.value) }
             data = { eventGuestsList }

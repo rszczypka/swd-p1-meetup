@@ -27,14 +27,12 @@ class EventsPage extends React.Component {
 
   render() {
     const p = this.props;
-    const rows = Object.keys(p.events).map(function (key) {
+    const rows = Object.keys(p.events).map(function (eventid) {
       return (
-        <div>
           <Event
-            key={ key }
-            event={ p.events[key] }
+            key={ eventid }
+            event={ p.events[eventid] }
           />
-        </div>
       );
     }).reverse();
 
@@ -94,9 +92,9 @@ class EventsPage extends React.Component {
           dismissAfter={5000}
         >
             {this.props.asyncMessages.messages
-              .map((message, key) =>
+              .map((message, i) =>
                 <span
-                  key={ key }
+                  key={ i }
                 >
                   <span
                     className="label label-success"

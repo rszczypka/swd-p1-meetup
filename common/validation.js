@@ -1,4 +1,5 @@
 import moment from 'moment';
+
 const isEmpty = value => value === undefined || value === null || value === '';
 const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
 
@@ -25,7 +26,62 @@ export function dateOfBirth(value) {
   } else {
     return "Invalid date";
   }
+}
 
+export function dateAndTime(value) {
+  if(isEmpty(value)) return false;
+
+  var today = new Date();
+  var dateObject = createDateFromString(value);
+
+  if (dateObject === null) return "Your date and time format doesn't look right";
+
+  var date = new Date(dateObject.year,dateObject.month,dateObject.day,dateObject.hour,dateObject.minute);
+  if (date.getFullYear() !== dateObject.year
+    || date.getMonth() != dateObject.month
+    || date.getDate() !== dateObject.day
+    || date.getHours() !== dateObject.hour
+    || date.getMinutes() !== dateObject.minute
+  ) {
+    return "Your date and time format doesn't look right";
+  }
+  if (date < today) {
+    return "Please choose a date in future"
+  }
+}
+
+function createDateFromString(value) {
+  if(isEmpty(value)) return false;
+  var matches = value.match(/^(\d{2}).(\d{2}).(\d{4}) (\d{2}):(\d{2})$/);
+
+  if (matches === null) return null;
+  var date = new Object();
+
+  date['year']  = parseInt(matches[3], 10);
+  date['month']  = parseInt(matches[2], 10) - 1; // months are 0-11
+  date['day']  = parseInt(matches[1], 10);
+  date['hour'] = parseInt(matches[4], 10);
+  date['minute'] = parseInt(matches[5], 10);
+  return date;
+}
+
+export function laterThan(field) {
+  return (value, data) => {
+    if (data) {
+      if(isEmpty(value)) return false;
+      var start = createDateFromString(data[field]);
+      if (start === null) return false;
+      var startDate = new Date(start.year,start.month,start.day,start.hour,start.minute);
+
+      var end = createDateFromString(value);
+      if (end === null) return false;
+      var endDate = new Date(end.year,end.month,end.day,end.hour,end.minute);
+
+      if (endDate < startDate) {
+        return "The end date must be after start date";
+      }
+    }
+  };
 }
 
 export function required(value) {

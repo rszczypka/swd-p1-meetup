@@ -1,11 +1,13 @@
-/* eslint new-cap:0, space-infix-ops:0, prefer-template:0 */
+/* eslint space-infix-ops:0, prefer-template:0 */
 import React from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 
 export default class Event extends React.Component {
 
   render() {
     const event = this.props.event;
+    const startDate = moment(event.start, 'DD/MM/YYYY HH:mm').format('ddd, MMM Do YYYY, HH:mm');
+    const endDate = moment(event.end, 'DD/MM/YYYY HH:mm').format('ddd, MMM Do YYYY, HH:mm');
 
     return (
       <div className="panel panel-default">
@@ -17,10 +19,10 @@ export default class Event extends React.Component {
           <div className="event-dates">
             <div className="fa fa-clock-o" title="Event dates"></div>
             <div className="start-date">
-              From { Moment(event.start).format('ddd, MMM Do YYYY, HH:mm') }
+              From { startDate }
             </div>
             { event.start!==event.end && <div className="end-date">
-              To { Moment(event.end).format('ddd, MMM Do YYYY, HH:mm') }
+              To { endDate }
             </div> }
           </div>
           <div className="event-location event-details">
